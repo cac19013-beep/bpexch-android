@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern Premium Dark Theme Colors -->
+    <color name="bg_main">#0B0E14</color>
+    <color name="bg_surface">#121824</color>
+    <color name="bg_card">#182030</color>
+    <color name="bg_card_secondary">#1F293D</color>
+    <color name="stroke_subtle">#2A364F</color>
+    <color name="stroke_light">#384869</color>
+
+    <!-- Brand & Accent Colors -->
+    <color name="accent_primary">#10B981</color>
+    <color name="accent_primary_dark">#059669</color>
+    <color name="accent_primary_light">#34D399</color>
+    <color name="accent_primary_glow">#2010B981</color>
+
+    <color name="accent_indigo">#6366F1</color>
+    <color name="accent_indigo_dark">#4F46E5</color>
+    <color name="accent_indigo_glow">#206366F1</color>
+
+    <color name="accent_cyan">#06B6D4</color>
+    <color name="accent_cyan_glow">#2006B6D4</color>
+
+    <color name="accent_amber">#F59E0B</color>
+    <color name="accent_amber_glow">#20F59E0B</color>
+
+    <color name="accent_rose">#F43F5E</color>
+    <color name="accent_rose_glow">#20F43F5E</color>
+
+    <!-- Text Colors -->
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_high_contrast">#F1F5F9</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="text_subtle">#64748B</color>
+
+    <!-- Status Colors -->
+    <color name="status_success">#10B981</color>
+    <color name="status_pending">#F59E0B</color>
+    <color name="status_danger">#EF4444</color>
+</resources>
