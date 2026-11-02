@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Verify Withdrawal Details"
+                android:text="@string/check_your_withdrawal_details"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Please review your payout details before sending"
+                android:text="@string/please_check_your_details_carefully"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -90,7 +90,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:lineSpacingExtra="2dp"
-            android:text="Important: Confirm that your Account Title and Number are 100% correct. Transactions sent to incorrect accounts cannot be reversed or refunded."
+            android:text="@string/important_please_make_sure_your"
             android:textColor="@color/notice_yellow_text"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Payout Channel"
+                android:text="@string/withdraw_to"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="JazzCash"
+                android:text="@string/jazzcash"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -141,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Account Title"
+                android:text="@string/account_title"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Demo User"
+                android:text="@string/demo_user"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Account / Number"
+                android:text="@string/account_number"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="0301-1234567"
+                android:text="@string/t_03011234567"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -198,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Withdrawal Amount"
+                android:text="@string/withdrawal_amount"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 
@@ -207,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Rs 1,000"
+                android:text="@string/rs_1000"
                 android:textColor="@color/deposit_green"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -222,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Fee &amp; Processing"
+                android:text="@string/fee_time"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -230,7 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="0% Free • 2 to 5 mins"
+                android:text="@string/no_fee_2_to_5"
                 android:textColor="@color/deposit_green_dark"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -245,7 +245,7 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/deposit_green"
         android:elevation="2dp"
-        android:text="Confirm &amp; Send Cash Out  ✓"
+        android:text="@string/confirm_withdraw"
         android:textColor="@color/text_white"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -257,7 +257,7 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:backgroundTint="@color/bg_card"
-        android:text="Edit Details"
+        android:text="@string/edit_details"
         android:textColor="@color/text_primary"
         android:textSize="14sp"
         android:textStyle="bold"

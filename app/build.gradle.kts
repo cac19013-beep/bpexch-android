@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.simpleapp"
+    namespace = "com.example.bpexch"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.simpleapp"
+        applicationId = "com.example.bpexch"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

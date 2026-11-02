@@ -52,7 +52,7 @@
                     android:id="@+id/tvProfileSheetUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="demo@3322"
+                    android:text="@string/demo3322"
                     android:textColor="@color/text_primary"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="UID: 984321 • Member since Oct 2026"
+                android:text="@string/uid_984321_member_since_oct"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -82,7 +82,7 @@
             android:paddingTop="3dp"
             android:paddingEnd="8dp"
             android:paddingBottom="3dp"
-            android:text="VIP 1"
+            android:text="@string/vip_1"
             android:textColor="@color/power_green_primary"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -101,7 +101,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Main Balance"
+            android:text="@string/main_balance"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Rs 12,450.00"
+            android:text="@string/rs_1245000"
             android:textColor="@color/power_green_primary"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_weight="1"
-            android:text="WhatsApp Support Agent"
+            android:text="@string/chat_with_agent_on_whatsapp"
             android:textColor="@color/text_primary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_weight="1"
-            android:text="In-App Live Support"
+            android:text="@string/live_support_in_app"
             android:textColor="@color/text_primary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -196,7 +196,7 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:backgroundTint="#FEE2E2"
-        android:text="Log Out of Account"
+        android:text="@string/log_out"
         android:textColor="@color/badge_red_text"
         android:textSize="14sp"
         android:textStyle="bold"

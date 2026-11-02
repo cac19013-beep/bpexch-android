@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SimpleApp"
+rootProject.name = "bpexch-android"
 include(":app")

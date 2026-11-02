@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notifications"
+                android:text="@string/notifications"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -51,7 +51,7 @@
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
-                android:text="3 New"
+                android:text="@string/t_3_new"
                 android:textColor="@color/power_green_primary"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -66,7 +66,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:text="Mark all read"
+            android:text="@string/mark_all_as_read"
             android:textColor="@color/power_green_primary"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deposit Confirmed"
+                android:text="@string/deposit_confirmed"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Rs 5,000 received via JazzCash. Wallet balance updated."
+                android:text="@string/rs_5000_received_via_jazzcash"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -119,13 +119,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="10 mins ago"
+                android:text="@string/t_10_mins_ago"
                 android:textColor="@color/text_muted"
                 android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Notification Item 2: Security Reminder -->
+    <!-- Notification Item 2: Safety Reminder -->
     <LinearLayout
         android:id="@+id/itemNotif2"
         android:layout_width="match_parent"
@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Security Reminder"
+                android:text="@string/safety_reminder"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Never share your password, PIN, or one-time codes."
+                android:text="@string/never_tell_your_password_pin"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -172,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="2 hours ago"
+                android:text="@string/t_2_hours_ago"
                 android:textColor="@color/text_muted"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -208,7 +208,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Security: Authorized Login"
+                android:text="@string/new_login_on_your_account"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -217,7 +217,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Logged in on Infinix X6728B in Lahore, Pakistan."
+                android:text="@string/your_account_was_logged_in"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -225,7 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="1 day ago"
+                android:text="@string/t_1_day_ago"
                 android:textColor="@color/text_muted"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -237,7 +237,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:backgroundTint="@color/power_green_light"
-        android:text="Close Notifications"
+        android:text="@string/close_notifications"
         android:textColor="@color/power_green_primary"
         android:textSize="14sp"
         android:textStyle="bold"

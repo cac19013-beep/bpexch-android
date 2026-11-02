@@ -51,7 +51,7 @@
             android:paddingTop="4dp"
             android:paddingEnd="10dp"
             android:paddingBottom="4dp"
-            android:text="▶ Watch 60s Video Tutorial"
+            android:text="@string/watch_video_guide_60_seconds"
             android:textColor="@color/text_white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -60,7 +60,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How to Create Account &amp; Deposit"
+        android:text="@string/how_to_create_account_deposit"
         android:textColor="@color/text_primary"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="14dp"
-        android:text="Follow these 3 simple steps to get started in seconds:"
+        android:text="@string/follow_these_3_easy_steps"
         android:textColor="@color/text_secondary"
         android:textSize="12sp" />
 
@@ -87,7 +87,7 @@
             android:layout_height="24dp"
             android:background="@drawable/bg_action_circle_emerald"
             android:gravity="center"
-            android:text="1"
+            android:text="@string/t_1"
             android:textColor="@color/power_green_primary"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Message our official agent on WhatsApp"
+            android:text="@string/send_a_message_to_our"
             android:textColor="@color/text_primary"
             android:textSize="13sp" />
     </LinearLayout>
@@ -115,7 +115,7 @@
             android:layout_height="24dp"
             android:background="@drawable/bg_action_circle_emerald"
             android:gravity="center"
-            android:text="2"
+            android:text="@string/t_2"
             android:textColor="@color/power_green_primary"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Receive your exclusive Login ID and password"
+            android:text="@string/get_your_login_id_and"
             android:textColor="@color/text_primary"
             android:textSize="13sp" />
     </LinearLayout>
@@ -143,7 +143,7 @@
             android:layout_height="24dp"
             android:background="@drawable/bg_action_circle_emerald"
             android:gravity="center"
-            android:text="3"
+            android:text="@string/t_3"
             android:textColor="@color/power_green_primary"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Login and make instant deposits via JazzCash or Bank"
+            android:text="@string/login_and_deposit_using_jazzcash"
             android:textColor="@color/text_primary"
             android:textSize="13sp" />
     </LinearLayout>
@@ -165,7 +165,7 @@
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/power_green_primary"
-        android:text="Contact us on WhatsApp"
+        android:text="@string/contact_us_on_whatsapp"
         android:textColor="@color/text_white"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -179,7 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:backgroundTint="@color/bg_card"
-        android:text="Close"
+        android:text="@string/close"
         android:textColor="@color/text_secondary"
         android:textSize="14sp"
         android:textStyle="bold"
