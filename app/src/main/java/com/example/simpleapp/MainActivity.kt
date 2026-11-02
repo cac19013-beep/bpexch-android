@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
     private val rawPassword = "demo@pass123"
     private var activeLanguage = "EN"
 
+    // Auth screen state
+    private var isAuthPasswordVisible = false
+    private var isCreateAccountMode = false
+
     // Withdraw flow state
     private var selectedWithdrawMethod = "JazzCash"
     private var selectedWithdrawAmount = 1000
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupAuthScreen()
         setupBottomNavigation()
         setupHomeScreen()
         setupDepositTab()
@@ -76,6 +81,76 @@ class MainActivity : AppCompatActivity() {
         setupWithdrawFlow()
         setupSupportChat()
         setupAnnouncementBar()
+    }
+
+    // ========================================================
+    // 0. AUTHENTICATION & LOGIN LOGIC
+    // ========================================================
+    private fun setupAuthScreen() {
+        // Toggle Password Visibility
+        binding.btnAuthTogglePassword.setOnClickListener {
+            isAuthPasswordVisible = !isAuthPasswordVisible
+            if (isAuthPasswordVisible) {
+                binding.etAuthPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.btnAuthTogglePassword.setImageResource(R.drawable.ic_eye_off)
+            } else {
+                binding.etAuthPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.btnAuthTogglePassword.setImageResource(R.drawable.ic_eye)
+            }
+            binding.etAuthPassword.setSelection(binding.etAuthPassword.text.length)
+        }
+
+        // Login Button
+        binding.btnAuthLogin.setOnClickListener {
+            val username = binding.etAuthUsername.text.toString().trim()
+            val password = binding.etAuthPassword.text.toString().trim()
+
+            if (username.isEmpty()) {
+                binding.etAuthUsername.error = "Please enter username or WhatsApp number"
+                binding.etAuthUsername.requestFocus()
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                binding.etAuthPassword.error = "Please enter password"
+                binding.etAuthPassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            // Successfully Authenticated: reveal Main Layout
+            binding.tvUsernameValue.text = username
+            binding.containerAuth.visibility = View.GONE
+            binding.layoutMain.visibility = View.VISIBLE
+            switchTab(0)
+            Toast.makeText(this, "Welcome back, $username! Logged in successfully.", Toast.LENGTH_SHORT).show()
+        }
+
+        // Create Account Box
+        binding.boxCreateAccount.setOnClickListener {
+            isCreateAccountMode = !isCreateAccountMode
+            if (isCreateAccountMode) {
+                binding.tvAuthSubtitle.visibility = View.VISIBLE
+                binding.tvAuthSubtitle.text = "Create your new account in 1 minute"
+                binding.tvCreateAccountSubtitle.visibility = View.VISIBLE
+                binding.btnAuthLogin.text = "Register Account"
+                binding.tvCreateAccountTitle.text = "Already have an account?"
+                binding.tvCreateAccountSubtitle.text = "Switch back to member login"
+            } else {
+                binding.tvAuthSubtitle.visibility = View.GONE
+                binding.tvCreateAccountSubtitle.visibility = View.GONE
+                binding.btnAuthLogin.text = "Login"
+                binding.tvCreateAccountTitle.text = "Create Account"
+            }
+        }
+
+        // WhatsApp Help Box
+        binding.boxWhatsApp.setOnClickListener {
+            openSupportChat()
+        }
+
+        // Dummy Video Link Box
+        binding.boxDummyVideo.setOnClickListener {
+            showVideoGuideDialog()
+        }
     }
 
     // ========================================================
@@ -169,13 +244,13 @@ class MainActivity : AppCompatActivity() {
             toggleLanguage()
         }
 
-        // Top Icons
+        // Top Icons: Bottom Sheets instead of Toasts
         binding.btnNotifications.setOnClickListener {
-            Toast.makeText(this, "1 Notification: Welcome to Bpexch! Your account is active.", Toast.LENGTH_LONG).show()
+            showNotificationsBottomSheet()
         }
 
         binding.btnProfile.setOnClickListener {
-            Toast.makeText(this, "Account: demo@3322 • Status: Active", Toast.LENGTH_SHORT).show()
+            showProfileBottomSheet()
         }
     }
 
@@ -205,7 +280,6 @@ class MainActivity : AppCompatActivity() {
             openDepositFlow()
         }
 
-        // Filter chips
         val chips = listOf(
             binding.chipDepositAll,
             binding.chipDepositApproved,
@@ -213,16 +287,53 @@ class MainActivity : AppCompatActivity() {
             binding.chipDepositRejected
         )
 
-        chips.forEach { chip ->
-            chip.setOnClickListener {
-                chips.forEach { c ->
-                    c.background = ContextCompat.getDrawable(this, R.drawable.bg_chip_filter_white)
-                    c.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+        fun updateDepositFilter(filterIndex: Int) {
+            chips.forEachIndexed { i, chip ->
+                val isActive = (i == filterIndex)
+                chip.background = ContextCompat.getDrawable(
+                    this,
+                    if (isActive) R.drawable.bg_chip_filter_active_blue else R.drawable.bg_chip_filter_white
+                )
+                chip.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        if (isActive) R.color.text_white else R.color.text_secondary
+                    )
+                )
+            }
+
+            when (filterIndex) {
+                0 -> { // All
+                    binding.cardDepositApprovedItem.visibility = View.VISIBLE
+                    binding.cardDepositPendingItem.visibility = View.VISIBLE
+                    binding.cardDepositRejectedItem.visibility = View.VISIBLE
+                    binding.cardDepositEmpty.visibility = View.GONE
                 }
-                chip.background = ContextCompat.getDrawable(this, R.drawable.bg_chip_filter_active_blue)
-                chip.setTextColor(ContextCompat.getColor(this, R.color.text_white))
+                1 -> { // Approved
+                    binding.cardDepositApprovedItem.visibility = View.VISIBLE
+                    binding.cardDepositPendingItem.visibility = View.GONE
+                    binding.cardDepositRejectedItem.visibility = View.GONE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
+                2 -> { // Pending
+                    binding.cardDepositApprovedItem.visibility = View.GONE
+                    binding.cardDepositPendingItem.visibility = View.VISIBLE
+                    binding.cardDepositRejectedItem.visibility = View.GONE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
+                3 -> { // Rejected
+                    binding.cardDepositApprovedItem.visibility = View.GONE
+                    binding.cardDepositPendingItem.visibility = View.GONE
+                    binding.cardDepositRejectedItem.visibility = View.VISIBLE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
             }
         }
+
+        chips.forEachIndexed { index, chip ->
+            chip.setOnClickListener { updateDepositFilter(index) }
+        }
+        updateDepositFilter(0)
     }
 
     // ========================================================
@@ -233,7 +344,6 @@ class MainActivity : AppCompatActivity() {
             openWithdrawFlow()
         }
 
-        // Filter chips
         val chips = listOf(
             binding.chipWithdrawAll,
             binding.chipWithdrawApproved,
@@ -241,16 +351,49 @@ class MainActivity : AppCompatActivity() {
             binding.chipWithdrawRejected
         )
 
-        chips.forEach { chip ->
-            chip.setOnClickListener {
-                chips.forEach { c ->
-                    c.background = ContextCompat.getDrawable(this, R.drawable.bg_chip_filter_white)
-                    c.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+        fun updateWithdrawFilter(filterIndex: Int) {
+            chips.forEachIndexed { i, chip ->
+                val isActive = (i == filterIndex)
+                chip.background = ContextCompat.getDrawable(
+                    this,
+                    if (isActive) R.drawable.bg_chip_filter_active_blue else R.drawable.bg_chip_filter_white
+                )
+                chip.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        if (isActive) R.color.text_white else R.color.text_secondary
+                    )
+                )
+            }
+
+            when (filterIndex) {
+                0 -> { // All
+                    binding.cardWithdrawApprovedItem.visibility = View.VISIBLE
+                    binding.cardWithdrawPendingItem.visibility = View.VISIBLE
+                    binding.cardWithdrawEmpty.visibility = View.GONE
                 }
-                chip.background = ContextCompat.getDrawable(this, R.drawable.bg_chip_filter_active_blue)
-                chip.setTextColor(ContextCompat.getColor(this, R.color.text_white))
+                1 -> { // Approved
+                    binding.cardWithdrawApprovedItem.visibility = View.VISIBLE
+                    binding.cardWithdrawPendingItem.visibility = View.GONE
+                    binding.cardWithdrawEmpty.visibility = View.GONE
+                }
+                2 -> { // Pending
+                    binding.cardWithdrawApprovedItem.visibility = View.GONE
+                    binding.cardWithdrawPendingItem.visibility = View.VISIBLE
+                    binding.cardWithdrawEmpty.visibility = View.GONE
+                }
+                3 -> { // Rejected (None rejected yet, show empty state)
+                    binding.cardWithdrawApprovedItem.visibility = View.GONE
+                    binding.cardWithdrawPendingItem.visibility = View.GONE
+                    binding.cardWithdrawEmpty.visibility = View.VISIBLE
+                }
             }
         }
+
+        chips.forEachIndexed { index, chip ->
+            chip.setOnClickListener { updateWithdrawFilter(index) }
+        }
+        updateWithdrawFilter(0)
     }
 
     // ========================================================
@@ -703,6 +846,16 @@ class MainActivity : AppCompatActivity() {
         return SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date())
     }
 
+    private fun chatBubbleWidth(textView: TextView, text: String, padding: Int, sideMargin: Int): Int {
+        val density = resources.displayMetrics.density
+        val scrollView = binding.chatScrollView
+        val availableWidth = scrollView.width - scrollView.paddingLeft - scrollView.paddingRight - sideMargin
+        val minimumWidth = (72 * density).toInt()
+        val maximumWidth = (availableWidth * 0.9f).toInt().coerceAtLeast(minimumWidth)
+        val textWidth = text.lineSequence().maxOfOrNull { textView.paint.measureText(it).toInt() } ?: 0
+        return (textWidth + padding * 2).coerceIn(minimumWidth, maximumWidth)
+    }
+
     private fun addWhatsAppUserMessage(text: String) {
         val density = resources.displayMetrics.density
         val userBubble = LinearLayout(this).apply {
@@ -711,21 +864,25 @@ class MainActivity : AppCompatActivity() {
             val pad = (10 * density).toInt()
             setPadding(pad, pad, pad, pad)
             elevation = 1f * density
-            val lp = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = Gravity.END
-                marginStart = (44 * density).toInt()
-                bottomMargin = (8 * density).toInt()
-            }
-            layoutParams = lp
-
+            val sideMargin = (44 * density).toInt()
             val tv = TextView(this@MainActivity).apply {
                 this.text = text
                 setTextColor(ContextCompat.getColor(this@MainActivity, R.color.text_primary))
                 textSize = 13.5f
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
             }
+            val lp = LinearLayout.LayoutParams(
+                chatBubbleWidth(tv, text, pad, sideMargin),
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.END
+                marginStart = sideMargin
+                bottomMargin = (8 * density).toInt()
+            }
+            layoutParams = lp
             addView(tv)
 
             // Bottom row with timestamp and double checkmarks
@@ -855,21 +1012,25 @@ class MainActivity : AppCompatActivity() {
             val pad = (10 * density).toInt()
             setPadding(pad, pad, pad, pad)
             elevation = 1f * density
-            val lp = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = Gravity.START
-                marginEnd = (44 * density).toInt()
-                bottomMargin = (8 * density).toInt()
-            }
-            layoutParams = lp
-
+            val sideMargin = (44 * density).toInt()
             val tv = TextView(this@MainActivity).apply {
                 this.text = text
                 setTextColor(android.graphics.Color.parseColor("#111B21"))
                 textSize = 13.5f
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
             }
+            val lp = LinearLayout.LayoutParams(
+                chatBubbleWidth(tv, text, pad, sideMargin),
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.START
+                marginEnd = sideMargin
+                bottomMargin = (8 * density).toInt()
+            }
+            layoutParams = lp
             addView(tv)
 
             val timeTv = TextView(this@MainActivity).apply {
@@ -911,5 +1072,88 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, "Opening WhatsApp for $phoneNumber", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // ========================================================
+    // RICH BOTTOM SHEETS & DIALOGS
+    // ========================================================
+    private fun showNotificationsBottomSheet() {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.layout_notifications_sheet, null)
+        dialog.setContentView(sheetView)
+
+        val tvCount = sheetView.findViewById<TextView>(R.id.tvNotificationCount)
+        val btnMarkRead = sheetView.findViewById<TextView>(R.id.btnMarkAllRead)
+        val btnClose = sheetView.findViewById<View>(R.id.btnDismissNotifications)
+
+        btnMarkRead?.setOnClickListener {
+            tvCount?.text = "0 New"
+            tvCount?.visibility = View.GONE
+            btnMarkRead.visibility = View.GONE
+            Toast.makeText(this, "All notifications marked as read", Toast.LENGTH_SHORT).show()
+        }
+
+        btnClose?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun showProfileBottomSheet() {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.layout_profile_sheet, null)
+        dialog.setContentView(sheetView)
+
+        val tvUsername = sheetView.findViewById<TextView>(R.id.tvProfileSheetUsername)
+        tvUsername?.text = binding.tvUsernameValue.text.toString()
+
+        val btnWhatsApp = sheetView.findViewById<View>(R.id.btnProfileWhatsApp)
+        btnWhatsApp?.setOnClickListener {
+            dialog.dismiss()
+            openSupportChat()
+        }
+
+        val btnLiveChat = sheetView.findViewById<View>(R.id.btnProfileLiveChat)
+        btnLiveChat?.setOnClickListener {
+            dialog.dismiss()
+            openSupportChat()
+        }
+
+        val btnLogout = sheetView.findViewById<View>(R.id.btnProfileLogout)
+        btnLogout?.setOnClickListener {
+            dialog.dismiss()
+            // Return back to Authentication / Login screen
+            binding.layoutMain.visibility = View.GONE
+            binding.viewDepositFlow.visibility = View.GONE
+            binding.viewWithdrawFlow.visibility = View.GONE
+            binding.containerAuth.visibility = View.VISIBLE
+            Toast.makeText(this, "Logged out successfully.", Toast.LENGTH_SHORT).show()
+        }
+
+        dialog.show()
+    }
+
+    private fun showVideoGuideDialog() {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.dialog_video_guide, null)
+        dialog.setContentView(sheetView)
+
+        val btnWhatsApp = sheetView.findViewById<View>(R.id.btnVideoWhatsAppAgent)
+        val btnDismiss = sheetView.findViewById<View>(R.id.btnDismissVideoGuide)
+        val cardVideo = sheetView.findViewById<View>(R.id.cardVideoPlayer)
+
+        btnWhatsApp?.setOnClickListener {
+            dialog.dismiss()
+            openSupportChat()
+        }
+        cardVideo?.setOnClickListener {
+            Toast.makeText(this, "Playing video tutorial: How to Create Account & Deposit", Toast.LENGTH_SHORT).show()
+        }
+        btnDismiss?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

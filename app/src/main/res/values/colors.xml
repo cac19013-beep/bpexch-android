@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Backgrounds & Surfaces -->
-    <color name="bg_app">#F0F4FA</color>
-    <color name="bg_card">#FFFFFF</color>
-    <color name="bg_input">#F1F5F9</color>
-    <color name="border_subtle">#E2E8F0</color>
-    <color name="border_card">#ECEFF5</color>
+    <!-- ======================================================== -->
+    <!-- STRONG POWER PALETTE: GREEN (WHOLE THEME)                -->
+    <!-- ======================================================== -->
+    <!-- Primary Green Brand Tokens -->
+    <color name="power_green_primary">#00A86B</color>         <!-- Strong Emerald Green Primary CTA -->
+    <color name="power_green_dark">#00875A</color>            <!-- Darker Pressed / Focus Green -->
+    <color name="power_green_light">#E8F8F1</color>           <!-- Mint surface / Active tab background -->
+    <color name="power_green_border">#A7F3D0</color>          <!-- Subtle mint border -->
+    <color name="power_green_vibrant">#10B981</color>         <!-- High-energy green accent -->
+    <color name="power_green_deep">#064E3B</color>            <!-- Deepest forest green -->
+    <color name="power_green_header">#005C4B</color>          <!-- WhatsApp / Official Header green -->
+    <color name="power_green_disabled">#9FE5C9</color>        <!-- Disabled button tint -->
 
-    <!-- Primary Brand Blue -->
-    <color name="primary_blue">#1E6FFB</color>
-    <color name="primary_blue_hover">#155EEF</color>
-    <color name="primary_blue_light">#EBF3FE</color>
-    <color name="primary_blue_disabled">#93C5FD</color>
+    <!-- Remap legacy primary_blue references directly to Power Green for whole-theme consistency -->
+    <color name="primary_blue">#00A86B</color>
+    <color name="primary_blue_hover">#00875A</color>
+    <color name="primary_blue_light">#E8F8F1</color>
+    <color name="primary_blue_disabled">#9FE5C9</color>
 
-    <!-- Strong Power Palette: Green -->
+    <!-- Deposit Green aliases -->
     <color name="deposit_green">#00A86B</color>
-    <color name="deposit_green_dark">#047857</color>
-    <color name="deposit_green_light">#E6F7F0</color>
-    <color name="deposit_green_border">#6EE7B7</color>
-    <color name="power_green_vibrant">#00C853</color>
-    <color name="power_green_deep">#064E3B</color>
-    <color name="power_green_header">#005C4B</color>
+    <color name="deposit_green_dark">#00875A</color>
+    <color name="deposit_green_light">#E8F8F1</color>
+    <color name="deposit_green_border">#A7F3D0</color>
 
-    <!-- Orange Withdraw Colors -->
+    <!-- App Backgrounds & Surfaces (Polished Mint-tinted Fintech Cleanliness) -->
+    <color name="bg_app">#F3F8F5</color>                      <!-- Fresh soft fintech surface -->
+    <color name="bg_card">#FFFFFF</color>                     <!-- Pure crisp card surface -->
+    <color name="bg_input">#F2F6F4</color>                    <!-- Soft rounded input surface -->
+    <color name="border_subtle">#E2ECE6</color>               <!-- Clean border divider -->
+    <color name="border_card">#E6EFE9</color>                 <!-- Card stroke -->
+
+    <!-- Orange Withdraw Palette -->
     <color name="withdraw_orange">#F97316</color>
     <color name="withdraw_orange_dark">#C2410C</color>
     <color name="withdraw_orange_light">#FFF7ED</color>
@@ -50,4 +60,5 @@
     <color name="jazzcash_pink">#E11D48</color>
     <color name="easypaisa_green">#059669</color>
     <color name="bank_alfalah_red">#DC2626</color>
+    <color name="sadapay_teal">#00BA88</color>
 </resources>
