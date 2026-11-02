@@ -125,7 +125,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Notification Item 2: Cash Back Bonus -->
+    <!-- Notification Item 2: Security Reminder -->
     <LinearLayout
         android:id="@+id/itemNotif2"
         android:layout_width="match_parent"
@@ -140,10 +140,10 @@
         <ImageView
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:background="@drawable/bg_action_circle_rose"
+            android:background="@drawable/bg_action_circle_emerald"
             android:padding="9dp"
-            android:src="@drawable/ic_cards"
-            app:tint="@color/badge_red" />
+            android:src="@drawable/ic_shield_check"
+            app:tint="@color/power_green_primary" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10% VIP Cashback Credited"
+                android:text="Security Reminder"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Rs 500 bonus credited to your wallet balance."
+                android:text="Never share your password, PIN, or one-time codes."
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 

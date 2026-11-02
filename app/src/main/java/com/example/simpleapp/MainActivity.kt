@@ -77,8 +77,7 @@ class MainActivity : AppCompatActivity() {
         setupHomeScreen()
         setupDepositTab()
         setupWithdrawTab()
-        setupDepositFlow()
-        setupWithdrawFlow()
+        setupHistoryTab()
         setupSupportChat()
         setupAnnouncementBar()
     }
@@ -154,18 +153,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ========================================================
-    // 1. BOTTOM NAVIGATION (HOME, DEPOSIT, WITHDRAWAL)
+    // 1. BOTTOM NAVIGATION (HOME, DEPOSIT, WITHDRAWAL, HISTORY)
     // ========================================================
     private fun setupBottomNavigation() {
         binding.tabHome.setOnClickListener { switchTab(0) }
         binding.tabDeposit.setOnClickListener { switchTab(1) }
         binding.tabWithdrawal.setOnClickListener { switchTab(2) }
+        binding.tabHistory.setOnClickListener { switchTab(3) }
     }
 
     private fun switchTab(tabIndex: Int) {
         binding.containerHome.visibility = if (tabIndex == 0) View.VISIBLE else View.GONE
         binding.containerDepositTab.visibility = if (tabIndex == 1) View.VISIBLE else View.GONE
         binding.containerWithdrawTab.visibility = if (tabIndex == 2) View.VISIBLE else View.GONE
+        binding.containerHistoryTab.visibility = if (tabIndex == 3) View.VISIBLE else View.GONE
 
         binding.mainScrollView.scrollTo(0, 0)
 
@@ -187,6 +188,11 @@ class MainActivity : AppCompatActivity() {
         binding.tabWithdrawal.background = if (tabIndex == 2) activeBg else null
         binding.ivTabWithdrawal.setColorFilter(if (tabIndex == 2) activeColor else inactiveColor)
         binding.tvTabWithdrawal.setTextColor(if (tabIndex == 2) activeColor else inactiveColor)
+
+        // Tab 3: History
+        binding.tabHistory.background = if (tabIndex == 3) activeBg else null
+        binding.ivTabHistory.setColorFilter(if (tabIndex == 3) activeColor else inactiveColor)
+        binding.tvTabHistory.setTextColor(if (tabIndex == 3) activeColor else inactiveColor)
     }
 
     // ========================================================
@@ -273,155 +279,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ========================================================
-    // 3. DEPOSIT TAB
-    // ========================================================
-    private fun setupDepositTab() {
-        binding.btnOpenDepositFlow.setOnClickListener {
-            openDepositFlow()
-        }
-
-        val chips = listOf(
-            binding.chipDepositAll,
-            binding.chipDepositApproved,
-            binding.chipDepositPending,
-            binding.chipDepositRejected
-        )
-
-        fun updateDepositFilter(filterIndex: Int) {
-            chips.forEachIndexed { i, chip ->
-                val isActive = (i == filterIndex)
-                chip.background = ContextCompat.getDrawable(
-                    this,
-                    if (isActive) R.drawable.bg_chip_filter_active_blue else R.drawable.bg_chip_filter_white
-                )
-                chip.setTextColor(
-                    ContextCompat.getColor(
-                        this,
-                        if (isActive) R.color.text_white else R.color.text_secondary
-                    )
-                )
-            }
-
-            when (filterIndex) {
-                0 -> { // All
-                    binding.cardDepositApprovedItem.visibility = View.VISIBLE
-                    binding.cardDepositPendingItem.visibility = View.VISIBLE
-                    binding.cardDepositRejectedItem.visibility = View.VISIBLE
-                    binding.cardDepositEmpty.visibility = View.GONE
-                }
-                1 -> { // Approved
-                    binding.cardDepositApprovedItem.visibility = View.VISIBLE
-                    binding.cardDepositPendingItem.visibility = View.GONE
-                    binding.cardDepositRejectedItem.visibility = View.GONE
-                    binding.cardDepositEmpty.visibility = View.GONE
-                }
-                2 -> { // Pending
-                    binding.cardDepositApprovedItem.visibility = View.GONE
-                    binding.cardDepositPendingItem.visibility = View.VISIBLE
-                    binding.cardDepositRejectedItem.visibility = View.GONE
-                    binding.cardDepositEmpty.visibility = View.GONE
-                }
-                3 -> { // Rejected
-                    binding.cardDepositApprovedItem.visibility = View.GONE
-                    binding.cardDepositPendingItem.visibility = View.GONE
-                    binding.cardDepositRejectedItem.visibility = View.VISIBLE
-                    binding.cardDepositEmpty.visibility = View.GONE
-                }
-            }
-        }
-
-        chips.forEachIndexed { index, chip ->
-            chip.setOnClickListener { updateDepositFilter(index) }
-        }
-        updateDepositFilter(0)
-    }
-
-    // ========================================================
-    // 4. WITHDRAW TAB
-    // ========================================================
-    private fun setupWithdrawTab() {
-        binding.btnOpenWithdrawFlow.setOnClickListener {
-            openWithdrawFlow()
-        }
-
-        val chips = listOf(
-            binding.chipWithdrawAll,
-            binding.chipWithdrawApproved,
-            binding.chipWithdrawPending,
-            binding.chipWithdrawRejected
-        )
-
-        fun updateWithdrawFilter(filterIndex: Int) {
-            chips.forEachIndexed { i, chip ->
-                val isActive = (i == filterIndex)
-                chip.background = ContextCompat.getDrawable(
-                    this,
-                    if (isActive) R.drawable.bg_chip_filter_active_blue else R.drawable.bg_chip_filter_white
-                )
-                chip.setTextColor(
-                    ContextCompat.getColor(
-                        this,
-                        if (isActive) R.color.text_white else R.color.text_secondary
-                    )
-                )
-            }
-
-            when (filterIndex) {
-                0 -> { // All
-                    binding.cardWithdrawApprovedItem.visibility = View.VISIBLE
-                    binding.cardWithdrawPendingItem.visibility = View.VISIBLE
-                    binding.cardWithdrawEmpty.visibility = View.GONE
-                }
-                1 -> { // Approved
-                    binding.cardWithdrawApprovedItem.visibility = View.VISIBLE
-                    binding.cardWithdrawPendingItem.visibility = View.GONE
-                    binding.cardWithdrawEmpty.visibility = View.GONE
-                }
-                2 -> { // Pending
-                    binding.cardWithdrawApprovedItem.visibility = View.GONE
-                    binding.cardWithdrawPendingItem.visibility = View.VISIBLE
-                    binding.cardWithdrawEmpty.visibility = View.GONE
-                }
-                3 -> { // Rejected (None rejected yet, show empty state)
-                    binding.cardWithdrawApprovedItem.visibility = View.GONE
-                    binding.cardWithdrawPendingItem.visibility = View.GONE
-                    binding.cardWithdrawEmpty.visibility = View.VISIBLE
-                }
-            }
-        }
-
-        chips.forEachIndexed { index, chip ->
-            chip.setOnClickListener { updateWithdrawFilter(index) }
-        }
-        updateWithdrawFilter(0)
-    }
-
-    // ========================================================
-    // 5. DEPOSIT FLOW SCREEN (STEPS 1 & 2)
+    // 3. DEPOSIT FLOW / HELPERS
     // ========================================================
     private fun openDepositFlow() {
-        binding.layoutMain.visibility = View.GONE
-        binding.viewWithdrawFlow.visibility = View.GONE
-        binding.viewDepositFlow.visibility = View.VISIBLE
+        switchTab(1)
         setDepositStep(1)
     }
 
     private fun closeDepositFlow() {
-        binding.viewDepositFlow.visibility = View.GONE
-        binding.layoutMain.visibility = View.VISIBLE
+        setDepositStep(1)
+        switchTab(0)
     }
 
-    private fun setupDepositFlow() {
+    private fun setupDepositTab() {
+        setDepositStep(1)
+
         binding.btnBackDepositFlow.setOnClickListener {
             if (binding.layoutDepositStep2.visibility == View.VISIBLE) {
                 setDepositStep(1)
             } else {
-                closeDepositFlow()
+                switchTab(0)
             }
         }
 
-        binding.btnDepositCancel1.setOnClickListener { closeDepositFlow() }
-        binding.btnDepositCancel2.setOnClickListener { closeDepositFlow() }
+        binding.btnDepositCancel1.setOnClickListener { switchTab(0) }
+        binding.btnDepositCancel2.setOnClickListener { setDepositStep(1) }
 
         // Bank selection
         binding.cardBankAlfalah.setOnClickListener {
@@ -462,8 +344,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             Toast.makeText(this, "Deposit request of Rs $amount submitted successfully!", Toast.LENGTH_LONG).show()
-            closeDepositFlow()
-            switchTab(1) // Return to Deposit tab
+            setDepositStep(1)
+            switchTab(3) // Switch to History tab
+            switchHistorySection(0) // Show Deposit History
         }
     }
 
@@ -497,35 +380,35 @@ class MainActivity : AppCompatActivity() {
             binding.tvDepositStep2Icon.setTextColor(ContextCompat.getColor(this, R.color.deposit_green_dark))
             binding.tvDepositStep2Label.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
         }
-        binding.viewDepositFlow.scrollTo(0, 0)
+        binding.mainScrollView.scrollTo(0, 0)
     }
 
     // ========================================================
-    // 6. WITHDRAW FLOW SCREEN (STEPS 1 & 2)
+    // 4. WITHDRAW FLOW / HELPERS
     // ========================================================
     private fun openWithdrawFlow() {
-        binding.layoutMain.visibility = View.GONE
-        binding.viewDepositFlow.visibility = View.GONE
-        binding.viewWithdrawFlow.visibility = View.VISIBLE
+        switchTab(2)
         setWithdrawStep(1)
     }
 
     private fun closeWithdrawFlow() {
-        binding.viewWithdrawFlow.visibility = View.GONE
-        binding.layoutMain.visibility = View.VISIBLE
+        setWithdrawStep(1)
+        switchTab(0)
     }
 
-    private fun setupWithdrawFlow() {
+    private fun setupWithdrawTab() {
+        setWithdrawStep(1)
+
         binding.btnBackWithdrawFlow.setOnClickListener {
             if (binding.layoutWithdrawStep2.visibility == View.VISIBLE) {
                 setWithdrawStep(1)
             } else {
-                closeWithdrawFlow()
+                switchTab(0)
             }
         }
 
-        binding.btnWithdrawCancel1.setOnClickListener { closeWithdrawFlow() }
-        binding.btnWithdrawCancel2.setOnClickListener { closeWithdrawFlow() }
+        binding.btnWithdrawCancel1.setOnClickListener { switchTab(0) }
+        binding.btnWithdrawCancel2.setOnClickListener { setWithdrawStep(1) }
 
         // Presets: 1,000 / 5,000 / 10,000
         binding.chipWithdraw1000.setOnClickListener {
@@ -622,8 +505,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             Toast.makeText(this, "Withdrawal request of Rs $selectedWithdrawAmount submitted for $title ($number)!", Toast.LENGTH_LONG).show()
-            closeWithdrawFlow()
-            switchTab(2) // Return to Withdrawal tab
+            setWithdrawStep(1)
+            switchTab(3) // Switch to History tab
+            switchHistorySection(1) // Show Withdraw History
         }
     }
 
@@ -657,35 +541,146 @@ class MainActivity : AppCompatActivity() {
             binding.tvWithdrawStep2Icon.setTextColor(ContextCompat.getColor(this, R.color.withdraw_orange_dark))
             binding.tvWithdrawStep2Label.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
         }
-        binding.viewWithdrawFlow.scrollTo(0, 0)
+        binding.mainScrollView.scrollTo(0, 0)
     }
 
     // ========================================================
-    // 6. ANNOUNCEMENT BAR (ENGAGEMENT & RETENTION)
+    // 5. HISTORY TAB (DEPOSIT & WITHDRAWAL)
     // ========================================================
-    private fun setupAnnouncementBar() {
-        val promos = listOf(
-            Triple("100% WELCOME BONUS", "Double your first deposit up to Rs 25,000 today!", "3,420 users online • Instant 2-min JazzCash & Easypaisa approval"),
-            Triple("INSTANT CASH-OUT", "JazzCash & Easypaisa withdrawals sent in under 2 minutes!", "Over Rs 4.8M paid out today • 0% withdrawal fee"),
-            Triple("DAILY CASHBACK", "Get up to 10% weekly loss cashback automatically every Monday!", "VIP Player rewards program now active • Claim yours now")
+    private fun switchHistorySection(sectionIndex: Int) {
+        val activePillBg = ContextCompat.getDrawable(this, R.drawable.bg_segmented_item_active)
+        val activeTextColor = ContextCompat.getColor(this, R.color.text_white)
+        val inactiveTextColor = ContextCompat.getColor(this, R.color.text_secondary)
+
+        binding.layoutHistoryDeposit.visibility = if (sectionIndex == 0) View.VISIBLE else View.GONE
+        binding.layoutHistoryWithdraw.visibility = if (sectionIndex == 1) View.VISIBLE else View.GONE
+
+        // Button 1: Deposit History
+        binding.btnHistoryDeposit.background = if (sectionIndex == 0) activePillBg else null
+        binding.btnHistoryDeposit.setTextColor(if (sectionIndex == 0) activeTextColor else inactiveTextColor)
+
+        // Button 2: Withdraw History
+        binding.btnHistoryWithdraw.background = if (sectionIndex == 1) activePillBg else null
+        binding.btnHistoryWithdraw.setTextColor(if (sectionIndex == 1) activeTextColor else inactiveTextColor)
+    }
+
+    private fun setupHistoryTab() {
+        binding.btnHistoryDeposit.setOnClickListener { switchHistorySection(0) }
+        binding.btnHistoryWithdraw.setOnClickListener { switchHistorySection(1) }
+
+        // Setup Deposit Filter Chips
+        val depositChips = listOf(
+            binding.chipDepositAll,
+            binding.chipDepositApproved,
+            binding.chipDepositPending,
+            binding.chipDepositRejected
         )
-        var promoIndex = 0
-        val handler = Handler(Looper.getMainLooper())
-        val promoRunnable = object : Runnable {
-            override fun run() {
-                promoIndex = (promoIndex + 1) % promos.size
-                val (tag, headline, sub) = promos[promoIndex]
-                binding.tvAnnouncementTag.text = tag
-                binding.tvAnnouncementHeadline.text = headline
-                binding.tvAnnouncementSub.text = sub
-                handler.postDelayed(this, 5000)
+        fun updateDepositFilter(filterIndex: Int) {
+            depositChips.forEachIndexed { i, chip ->
+                val isActive = (i == filterIndex)
+                chip.background = ContextCompat.getDrawable(
+                    this,
+                    if (isActive) R.drawable.bg_chip_filter_active_blue else R.drawable.bg_chip_filter_white
+                )
+                chip.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        if (isActive) R.color.text_white else R.color.text_secondary
+                    )
+                )
+            }
+            when (filterIndex) {
+                0 -> {
+                    binding.cardDepositApprovedItem.visibility = View.VISIBLE
+                    binding.cardDepositPendingItem.visibility = View.VISIBLE
+                    binding.cardDepositRejectedItem.visibility = View.VISIBLE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
+                1 -> {
+                    binding.cardDepositApprovedItem.visibility = View.VISIBLE
+                    binding.cardDepositPendingItem.visibility = View.GONE
+                    binding.cardDepositRejectedItem.visibility = View.GONE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
+                2 -> {
+                    binding.cardDepositApprovedItem.visibility = View.GONE
+                    binding.cardDepositPendingItem.visibility = View.VISIBLE
+                    binding.cardDepositRejectedItem.visibility = View.GONE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
+                3 -> {
+                    binding.cardDepositApprovedItem.visibility = View.GONE
+                    binding.cardDepositPendingItem.visibility = View.GONE
+                    binding.cardDepositRejectedItem.visibility = View.VISIBLE
+                    binding.cardDepositEmpty.visibility = View.GONE
+                }
             }
         }
-        handler.postDelayed(promoRunnable, 5000)
-
-        binding.bannerAnnouncement.setOnClickListener {
-            openDepositFlow()
+        depositChips.forEachIndexed { index, chip ->
+            chip.setOnClickListener { updateDepositFilter(index) }
         }
+        updateDepositFilter(0)
+
+        // Setup Withdraw Filter Chips
+        val withdrawChips = listOf(
+            binding.chipWithdrawAll,
+            binding.chipWithdrawApproved,
+            binding.chipWithdrawPending,
+            binding.chipWithdrawRejected
+        )
+        fun updateWithdrawFilter(filterIndex: Int) {
+            withdrawChips.forEachIndexed { i, chip ->
+                val isActive = (i == filterIndex)
+                chip.background = ContextCompat.getDrawable(
+                    this,
+                    if (isActive) R.drawable.bg_chip_filter_active_blue else R.drawable.bg_chip_filter_white
+                )
+                chip.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        if (isActive) R.color.text_white else R.color.text_secondary
+                    )
+                )
+            }
+            when (filterIndex) {
+                0 -> {
+                    binding.cardWithdrawApprovedItem.visibility = View.VISIBLE
+                    binding.cardWithdrawPendingItem.visibility = View.VISIBLE
+                    binding.cardWithdrawEmpty.visibility = View.GONE
+                }
+                1 -> {
+                    binding.cardWithdrawApprovedItem.visibility = View.VISIBLE
+                    binding.cardWithdrawPendingItem.visibility = View.GONE
+                    binding.cardWithdrawEmpty.visibility = View.GONE
+                }
+                2 -> {
+                    binding.cardWithdrawApprovedItem.visibility = View.GONE
+                    binding.cardWithdrawPendingItem.visibility = View.VISIBLE
+                    binding.cardWithdrawEmpty.visibility = View.GONE
+                }
+                3 -> {
+                    binding.cardWithdrawApprovedItem.visibility = View.GONE
+                    binding.cardWithdrawPendingItem.visibility = View.GONE
+                    binding.cardWithdrawEmpty.visibility = View.VISIBLE
+                }
+            }
+        }
+        withdrawChips.forEachIndexed { index, chip ->
+            chip.setOnClickListener { updateWithdrawFilter(index) }
+        }
+        updateWithdrawFilter(0)
+
+        // Default to Deposit History
+        switchHistorySection(0)
+    }
+
+    // ========================================================
+    // 6. IMPORTANT UPDATE BANNER
+    // ========================================================
+    private fun setupAnnouncementBar() {
+        binding.tvAnnouncementTag.text = "Important Update"
+        binding.tvAnnouncementHeadline.text = "Check the official website for current account and payment information."
+        binding.tvAnnouncementSub.text = "Confirm details through official channels before making a transaction."
     }
 
     // ========================================================
@@ -714,31 +709,23 @@ class MainActivity : AppCompatActivity() {
 
         // WhatsApp Quick Questions (Triggered with clean text)
         binding.chipQuickDeposit.setOnClickListener {
-            handleQuickQuestion(
-                "How to deposit funds?",
-                "To make a deposit on Bpexch:\n\n1. Tap '+ Make a Deposit' from Home or Deposit tab\n2. Select your payment channel (Bank Alfalah, JazzCash, Easypaisa)\n3. Transfer to the official account number\n4. Attach your payment slip screenshot\n\nDeposits are verified automatically within 2 to 5 minutes."
-            )
+            val reply = SupportContent.quickReplies.first { it.question == "How to deposit funds?" }
+            handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickWithdraw.setOnClickListener {
-            handleQuickQuestion(
-                "What is the withdrawal processing speed?",
-                "Bpexch cashouts are active 24/7/365:\n\n• JazzCash & Easypaisa: Under 5 minutes\n• Bank Transfer: 10 - 20 minutes\n• Payout fee: 0% Free\n\nSubmit your payout request directly from the 'Withdrawal' tab anytime."
-            )
+            val reply = SupportContent.quickReplies.first { it.question == "What is the withdrawal processing speed?" }
+            handleQuickQuestion(reply.question, reply.answer)
         }
 
-        binding.chipQuickBonus.setOnClickListener {
-            handleQuickQuestion(
-                "How do I claim the 100% Welcome Bonus?",
-                "You qualify for our 100% First Deposit Bonus:\n\n• Min Deposit: Rs 500\n• Max Bonus: Rs 25,000\n• Bonus Code: FIRST100\n\nMake your first deposit and contact support with your transaction slip to receive your matching bonus immediately."
-            )
+        binding.chipQuickAccount.setOnClickListener {
+            val reply = SupportContent.quickReplies.first { it.question == "How can I get account help?" }
+            handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickPassword.setOnClickListener {
-            handleQuickQuestion(
-                "How do I change my account password?",
-                "For the security of account demo@3322, password updates are verified by our security desk.\n\nPlease confirm your registered phone number or message us on WhatsApp for an instant reset code."
-            )
+            val reply = SupportContent.quickReplies.first { it.question == "How do I change my account password?" }
+            handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickWhatsApp.setOnClickListener {
@@ -826,18 +813,7 @@ class MainActivity : AppCompatActivity() {
         addWhatsAppUserMessage(text)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val reply = when {
-                text.contains("deposit", ignoreCase = true) ->
-                    "To make a deposit, tap the '+ Make a Deposit' button on the Deposit tab or the Deposit card on the Home screen. Our verified company accounts are updated live."
-                text.contains("withdraw", ignoreCase = true) || text.contains("cashout", ignoreCase = true) ->
-                    "Withdrawals are processed 24/7 with zero fees. Average payout time is 2 to 5 minutes via JazzCash or Easypaisa."
-                text.contains("bonus", ignoreCase = true) || text.contains("promo", ignoreCase = true) ->
-                    "You have a 100% First Deposit bonus waiting on your account demo@3322! Double your deposit up to Rs 25,000 today."
-                text.contains("hello", ignoreCase = true) || text.contains("hi", ignoreCase = true) || text.contains("hey", ignoreCase = true) ->
-                    "Hello! Welcome to Bpexch Live Support. How can we help you today with your wallet or account?"
-                else ->
-                    "Thank you for contacting Bpexch Live Support. A representative has received your message regarding \"$text\" and will assist you momentarily."
-            }
+            val reply = SupportReplyHelper.getReply(text)
             addWhatsAppBotMessage(reply)
         }, 600)
     }
@@ -1125,8 +1101,6 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
             // Return back to Authentication / Login screen
             binding.layoutMain.visibility = View.GONE
-            binding.viewDepositFlow.visibility = View.GONE
-            binding.viewWithdrawFlow.visibility = View.GONE
             binding.containerAuth.visibility = View.VISIBLE
             Toast.makeText(this, "Logged out successfully.", Toast.LENGTH_SHORT).show()
         }

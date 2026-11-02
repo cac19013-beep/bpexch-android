@@ -37,6 +37,7 @@
     <color name="withdraw_orange_dark">#C2410C</color>
     <color name="withdraw_orange_light">#FFF7ED</color>
     <color name="withdraw_orange_border">#FED7AA</color>
+    <color name="badge_orange">#F97316</color>
 
     <!-- Notice Card Yellow/Cream -->
     <color name="notice_yellow_bg">#FFFDF5</color>
