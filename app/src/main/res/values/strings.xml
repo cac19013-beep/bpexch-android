@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple App</string>
+    <string name="app_name">Bpexch</string>
     <string name="welcome_title">Welcome to Android!</string>
     <string name="welcome_subtitle">A simple counter and greeting demo app</string>
     <string name="name_hint">Enter your name</string>

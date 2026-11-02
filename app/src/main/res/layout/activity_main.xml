@@ -29,12 +29,15 @@
 
             <!-- App Logo Squircle & Header -->
             <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_card_white"
-                android:elevation="3dp"
-                android:padding="6dp"
-                android:src="@drawable/ic_bp_logo" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_logo_brand"
+                android:elevation="4dp"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/logo"
+                android:tint="@color/text_primary" />
 
             <TextView
                 android:id="@+id/tvAuthSubtitle"
@@ -361,11 +364,13 @@
 
                             <!-- Bpexch Logo Squircle -->
                             <ImageView
-                                android:layout_width="44dp"
-                                android:layout_height="44dp"
-                                android:background="@drawable/bg_card_white"
-                                android:padding="4dp"
-                                android:src="@drawable/ic_bp_logo" />
+                                android:layout_width="46dp"
+                                android:layout_height="46dp"
+                                android:background="@drawable/bg_logo_brand"
+                                android:padding="5dp"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/logo"
+                                android:tint="@color/text_primary" />
 
                         </LinearLayout>
 
@@ -764,13 +769,13 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
                                     android:layout_centerVertical="true"
-                                    android:background="@drawable/bg_card_yellow_notice"
+                                    android:background="@drawable/bg_card_mint_notice"
                                     android:paddingStart="8dp"
                                     android:paddingTop="3dp"
                                     android:paddingEnd="8dp"
                                     android:paddingBottom="3dp"
                                     android:text="- Withdraw"
-                                    android:textColor="@color/withdraw_orange_dark"
+                                    android:textColor="@color/deposit_green_dark"
                                     android:textSize="11sp"
                                     android:textStyle="bold" />
                             </RelativeLayout>
@@ -829,6 +834,277 @@
                             app:tint="@color/text_secondary" />
                     </LinearLayout>
 
+                                    <!-- ================= PLATFORM RULES & GUIDELINES ================= -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_card_white"
+                        android:elevation="1dp"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <!-- Rules Header -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="14dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/bg_action_circle_emerald"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_shield_check"
+                                app:tint="@color/power_green_primary" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rules &amp; Guidelines"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Important terms for safe &amp; instant transactions"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="11.5sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Rule 1: Account Ownership -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:background="@drawable/bg_circle_icon_button"
+                                android:backgroundTint="@color/deposit_green_light"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="@color/deposit_green_dark"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Account Ownership &amp; Title Matching"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:lineSpacingExtra="2dp"
+                                    android:text="The account title on your deposit and withdrawal wallet must match your registered name. Third-party cashouts are not permitted."
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Rule 2: 24/7 Zero Fee Cashouts -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:background="@drawable/bg_circle_icon_button"
+                                android:backgroundTint="@color/deposit_green_light"
+                                android:gravity="center"
+                                android:text="2"
+                                android:textColor="@color/deposit_green_dark"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Fast 24/7 Payouts • 0% Fee"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:lineSpacingExtra="2dp"
+                                    android:text="Withdrawals are processed 24/7/365 with zero commission. Average payout arrival time is 2 to 5 minutes via JazzCash, Easypaisa, or Bank."
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Rule 3: Single Account Policy -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:background="@drawable/bg_circle_icon_button"
+                                android:backgroundTint="@color/deposit_green_light"
+                                android:gravity="center"
+                                android:text="3"
+                                android:textColor="@color/deposit_green_dark"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Single Account Fair Play Policy"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:lineSpacingExtra="2dp"
+                                    android:text="Only one account is allowed per player. Multi-accounting, arbitrage abuse, or bot manipulation will result in permanent account termination."
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Rule 4: Official Company Accounts -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:background="@drawable/bg_circle_icon_button"
+                                android:backgroundTint="@color/deposit_green_light"
+                                android:gravity="center"
+                                android:text="4"
+                                android:textColor="@color/deposit_green_dark"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Verify Deposit Accounts Before Sending"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:lineSpacingExtra="2dp"
+                                    android:text="Always verify the active bank account on the Deposit screen before transferring funds. Upload your valid transaction screenshot promptly."
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Rule 5: Security & Support Protection -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:background="@drawable/bg_circle_icon_button"
+                                android:backgroundTint="@color/deposit_green_light"
+                                android:gravity="center"
+                                android:text="5"
+                                android:textColor="@color/deposit_green_dark"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Official Support Only • Never Share Passwords"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:lineSpacingExtra="2dp"
+                                    android:text="Bpexch staff will never ask for your account password or payment PIN. Contact support solely via our in-app Live Chat and verified WhatsApp."
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                                 <!-- ================= TAB 2: DEPOSIT TAB ================= -->
@@ -983,46 +1259,6 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <!-- Official Accounts Notice -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_card_mint_notice"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:src="@drawable/ic_shield_check" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Official Company Accounts"
-                            android:textColor="@color/deposit_green_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:lineSpacingExtra="2dp"
-                            android:text="Choose an active account below to transfer funds. You will upload the payment slip on the next step."
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-
                 <!-- Bank Card: Bank Alfalah -->
                 <LinearLayout
                     android:id="@+id/cardBankAlfalah"
@@ -1078,7 +1314,7 @@
                         android:clickable="false" />
                 </LinearLayout>
 
-                <!-- Next & Cancel Buttons -->
+                <!-- Next Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDepositNext"
                     android:layout_width="match_parent"
@@ -1090,19 +1326,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:cornerRadius="14dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDepositCancel1"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="@color/bg_card"
-                    android:text="Cancel"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="14dp"
-                    app:strokeColor="@color/border_subtle"
-                    app:strokeWidth="1.2dp" />
             </LinearLayout>
 
             <!-- STEP 2 CONTENT: TRANSFER & PROOF -->
@@ -1162,108 +1385,6 @@
                         android:layout_height="20dp"
                         android:background="@drawable/bg_circle_icon_button"
                         android:backgroundTint="@color/primary_blue" />
-                </LinearLayout>
-
-                <!-- Deposit Instructions Card -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_card_mint_notice"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Deposit Instructions"
-                        android:textColor="@color/deposit_green_dark"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <!-- Instruction 1 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:backgroundTint="@color/deposit_green_border"
-                            android:gravity="center"
-                            android:text="1"
-                            android:textColor="@color/deposit_green_dark"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:text="Copy the account number below and send funds using your banking app."
-                            android:textColor="@color/text_primary"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <!-- Instruction 2 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:backgroundTint="@color/deposit_green_border"
-                            android:gravity="center"
-                            android:text="2"
-                            android:textColor="@color/deposit_green_dark"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:text="Take a screenshot of the completed transfer slip."
-                            android:textColor="@color/text_primary"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <!-- Instruction 3 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:backgroundTint="@color/deposit_green_border"
-                            android:gravity="center"
-                            android:text="3"
-                            android:textColor="@color/deposit_green_dark"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:text="Enter the exact amount below, attach the screenshot, and submit."
-                            android:textColor="@color/text_primary"
-                            android:textSize="12sp" />
-                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- Bank Details Card -->
@@ -1462,10 +1583,68 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="14dp"
                         android:text="Minimum deposit is Rs 500"
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
+
+                    <!-- Presets: 500 / 800 / 1000 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/chipDeposit500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/bg_card_mint_notice"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:paddingStart="18dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="18dp"
+                            android:paddingBottom="8dp"
+                            android:text="500"
+                            android:textColor="@color/deposit_green_dark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/chipDeposit800"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/bg_card_mint_notice"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:paddingStart="18dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="18dp"
+                            android:paddingBottom="8dp"
+                            android:text="800"
+                            android:textColor="@color/deposit_green_dark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/chipDeposit1000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_card_mint_notice"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:paddingStart="18dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="18dp"
+                            android:paddingBottom="8dp"
+                            android:text="1000"
+                            android:textColor="@color/deposit_green_dark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <!-- Receipt Header -->
                     <RelativeLayout
@@ -1573,12 +1752,12 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <!-- Submit & Cancel Buttons -->
+                <!-- Submit Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDepositSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="10dp"
                     android:backgroundTint="@color/primary_blue"
                     android:text="Submit Request  ✓"
                     android:textColor="@color/text_white"
@@ -1586,14 +1765,16 @@
                     android:textStyle="bold"
                     app:cornerRadius="14dp" />
 
+                <!-- Cancel / Back Button -->
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDepositCancel2"
+                    android:id="@+id/btnDepositCancel"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="24dp"
                     android:backgroundTint="@color/bg_card"
-                    android:text="Cancel"
+                    android:text="Back to Previous Step"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="14dp"
                     app:strokeColor="@color/border_subtle"
@@ -1753,67 +1934,6 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <!-- Notice: Fast Cashout Processing -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_card_yellow_notice"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_clock" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Fast Cashout Processing"
-                            android:textColor="@color/withdraw_orange_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="Withdrawals today"
-                            android:textColor="@color/withdraw_orange_dark"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:text="0 / 1"
-                            android:textColor="@color/withdraw_orange_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <!-- Underline bar -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@color/withdraw_orange_border" />
-                </LinearLayout>
-
                 <!-- Card: Amount -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1931,184 +2051,179 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Card: Method Selector (JazzCash & Easypaisa) -->
+                <!-- Channel Selector Section: Wallet & Bank Dropdowns -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Choose Withdrawal Method"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- 1. Wallet Dropdown Button -->
                 <LinearLayout
+                    android:id="@+id/btnDropdownWallet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/bg_card_white"
-                    android:elevation="1dp"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_dropdown_card_active"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
-                    <!-- JazzCash Item -->
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivSelectedWalletIcon"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_circle_icon_button"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/logo_jazzcash"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
                     <LinearLayout
-                        android:id="@+id/rowJazzCash"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingTop="6dp"
-                        android:paddingBottom="12dp">
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/logo_jazzcash"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="14dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="JazzCash"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Withdraw to your JazzCash wallet"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <RadioButton
-                            android:id="@+id/rbJazzCash"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:clickable="false" />
+                            android:text="Mobile Wallet"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSelectedWalletName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="JazzCash"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/border_subtle" />
-
-                    <!-- Easypaisa Item -->
+                    <!-- Dropdown Pill Indicator -->
                     <LinearLayout
-                        android:id="@+id/rowEasypaisa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
+                        android:id="@+id/pillWalletDropdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_badge_verified"
+                        android:backgroundTint="@color/deposit_green_light"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp">
+                        android:paddingStart="12dp"
+                        android:paddingEnd="10dp">
 
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/logo_easypaisa"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="14dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Easypaisa"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Withdraw to your Easypaisa wallet"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <RadioButton
-                            android:id="@+id/rbEasypaisa"
+                        <TextView
+                            android:id="@+id/tvWalletDropdownTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:clickable="false" />
-                    </LinearLayout>
+                            android:text="Selected"
+                            android:textColor="@color/deposit_green_dark"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/border_subtle" />
-
-                    <!-- SadaPay Item -->
-                    <LinearLayout
-                        android:id="@+id/rowSadaPay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="6dp">
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/logo_sadapay"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="14dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="SadaPay"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Withdraw to your SadaPay account"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <RadioButton
-                            android:id="@+id/rbSadaPay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:clickable="false" />
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginStart="4dp"
+                            android:src="@drawable/ic_chevron_down"
+                            app:tint="@color/deposit_green_dark" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Next & Cancel Buttons -->
+                <!-- 2. Bank Dropdown Button -->
+                <LinearLayout
+                    android:id="@+id/btnDropdownBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/bg_dropdown_card_inactive"
+                    android:clickable="true"
+                    android:elevation="1dp"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivSelectedBankIcon"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_circle_icon_button"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/logo_bank_alfalah"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bank Transfer"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSelectedBankName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Select bank"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Dropdown Pill Indicator -->
+                    <LinearLayout
+                        android:id="@+id/pillBankDropdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_pill_lang"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="10dp">
+
+                        <TextView
+                            android:id="@+id/tvBankDropdownTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginStart="4dp"
+                            android:src="@drawable/ic_chevron_down"
+                            app:tint="@color/text_secondary" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Next Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnWithdrawNext"
                     android:layout_width="match_parent"
@@ -2120,19 +2235,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:cornerRadius="14dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnWithdrawCancel1"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="@color/bg_card"
-                    android:text="Cancel"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="14dp"
-                    app:strokeColor="@color/border_subtle"
-                    app:strokeWidth="1.2dp" />
             </LinearLayout>
 
             <!-- STEP 2 CONTENT: PAYOUT DESTINATION -->
@@ -2142,47 +2244,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
-
-                <!-- Notice: Account Verification -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_card_yellow_notice"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:src="@drawable/ic_shield_check"
-                        app:tint="@color/withdraw_orange_dark" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Account Verification Notice"
-                            android:textColor="@color/withdraw_orange_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:lineSpacingExtra="2dp"
-                            android:text="Account title must match your registered name. Third-party accounts will be rejected by compliance."
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
 
                 <!-- Selected Method Card -->
                 <LinearLayout
@@ -2366,31 +2427,17 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
-                <!-- Submit & Cancel Buttons -->
+                <!-- Submit Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnWithdrawSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:layout_marginBottom="12dp"
                     android:backgroundTint="@color/primary_blue"
                     android:text="Submit Request  ✓"
                     android:textColor="@color/text_white"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:cornerRadius="14dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnWithdrawCancel2"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="@color/bg_card"
-                    android:text="Cancel"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="14dp"
-                    app:strokeColor="@color/border_subtle"
-                    app:strokeWidth="1.2dp" />
             </LinearLayout>
                 </LinearLayout>
 

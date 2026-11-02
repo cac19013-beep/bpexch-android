@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private var isCreateAccountMode = false
 
     // Withdraw flow state
-    private var selectedWithdrawMethod = "JazzCash"
+    private var selectedWithdrawMethod = ""
     private var selectedWithdrawAmount = 1000
 
     // Chat support state
@@ -163,6 +163,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun switchTab(tabIndex: Int) {
+        if (tabIndex == 2) resetWithdrawMethodSelection()
+
         binding.containerHome.visibility = if (tabIndex == 0) View.VISIBLE else View.GONE
         binding.containerDepositTab.visibility = if (tabIndex == 1) View.VISIBLE else View.GONE
         binding.containerWithdrawTab.visibility = if (tabIndex == 2) View.VISIBLE else View.GONE
@@ -302,9 +304,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnDepositCancel1.setOnClickListener { switchTab(0) }
-        binding.btnDepositCancel2.setOnClickListener { setDepositStep(1) }
-
         // Bank selection
         binding.cardBankAlfalah.setOnClickListener {
             binding.rbBankAlfalah.isChecked = true
@@ -322,6 +321,31 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnCopyDepositIban.setOnClickListener {
             copyToClipboard("IBAN", binding.tvDepositIban.text.toString())
+        }
+
+        // Presets: 500 / 800 / 1000
+        val depositChips = listOf(binding.chipDeposit500, binding.chipDeposit800, binding.chipDeposit1000)
+        fun setDepositChipActive(amount: String, activeChip: TextView) {
+            binding.etDepositAmountFlow.setText(amount)
+            depositChips.forEach { chip ->
+                val isActive = (chip == activeChip)
+                chip.setBackgroundResource(if (isActive) R.drawable.bg_badge_verified else R.drawable.bg_card_white)
+                if (isActive) {
+                    chip.backgroundTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_light)
+                    chip.setTextColor(ContextCompat.getColor(this, R.color.deposit_green_dark))
+                } else {
+                    chip.backgroundTintList = null
+                    chip.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+                }
+            }
+        }
+        binding.chipDeposit500.setOnClickListener { setDepositChipActive("500", binding.chipDeposit500) }
+        binding.chipDeposit800.setOnClickListener { setDepositChipActive("800", binding.chipDeposit800) }
+        binding.chipDeposit1000.setOnClickListener { setDepositChipActive("1000", binding.chipDeposit1000) }
+
+        // Cancel / Back to Step 1
+        binding.btnDepositCancel.setOnClickListener {
+            setDepositStep(1)
         }
 
         // Attach receipt via real photo picker
@@ -407,9 +431,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnWithdrawCancel1.setOnClickListener { switchTab(0) }
-        binding.btnWithdrawCancel2.setOnClickListener { setWithdrawStep(1) }
-
         // Presets: 1,000 / 5,000 / 10,000
         binding.chipWithdraw1000.setOnClickListener {
             binding.etWithdrawAmountFlow.setText("1000")
@@ -426,32 +447,26 @@ class MainActivity : AppCompatActivity() {
             selectedWithdrawAmount = 10000
         }
 
-        // Method selection: JazzCash, Easypaisa & SadaPay
-        binding.rowJazzCash.setOnClickListener {
-            selectedWithdrawMethod = "JazzCash"
-            binding.rbJazzCash.isChecked = true
-            binding.rbEasypaisa.isChecked = false
-            binding.rbSadaPay.isChecked = false
+        // Method selection: Wallet and Bank dropdown pickers
+        binding.btnDropdownWallet.setOnClickListener {
+            showWalletPickerBottomSheet()
         }
 
-        binding.rowEasypaisa.setOnClickListener {
-            selectedWithdrawMethod = "Easypaisa"
-            binding.rbJazzCash.isChecked = false
-            binding.rbEasypaisa.isChecked = true
-            binding.rbSadaPay.isChecked = false
+        binding.btnDropdownBank.setOnClickListener {
+            showBankPickerBottomSheet()
         }
 
-        binding.rowSadaPay.setOnClickListener {
-            selectedWithdrawMethod = "SadaPay"
-            binding.rbJazzCash.isChecked = false
-            binding.rbEasypaisa.isChecked = false
-            binding.rbSadaPay.isChecked = true
-        }
+        resetWithdrawMethodSelection()
 
         // Step 1 -> Next
         binding.btnWithdrawNext.setOnClickListener {
             val amountStr = binding.etWithdrawAmountFlow.text.toString().trim()
             val amount = amountStr.toIntOrNull() ?: 1000
+
+            if (selectedWithdrawMethod.isBlank()) {
+                Toast.makeText(this, "Please select a withdrawal method first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (amount < 500) {
                 Toast.makeText(this, "Minimum withdrawal is Rs 500", Toast.LENGTH_SHORT).show()
@@ -470,26 +485,51 @@ class MainActivity : AppCompatActivity() {
                     binding.tvWithdrawStep2MethodBadge.text = "JC"
                     binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.jazzcash_pink)
                     binding.tvWithdrawStep2MethodName.text = "JazzCash"
-                    binding.tvWithdrawNumberLabel.text = "JazzCash Number"
+                    binding.tvWithdrawNumberLabel.text = "JazzCash Mobile Number"
                 }
                 "Easypaisa" -> {
                     binding.tvWithdrawStep2MethodBadge.text = "EP"
                     binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.easypaisa_green)
                     binding.tvWithdrawStep2MethodName.text = "Easypaisa"
-                    binding.tvWithdrawNumberLabel.text = "Easypaisa Number"
+                    binding.tvWithdrawNumberLabel.text = "Easypaisa Mobile Number"
                 }
-                else -> {
+                "SadaPay" -> {
                     binding.tvWithdrawStep2MethodBadge.text = "SP"
                     binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_dark)
                     binding.tvWithdrawStep2MethodName.text = "SadaPay"
                     binding.tvWithdrawNumberLabel.text = "SadaPay Mobile / IBAN"
+                }
+                "NayaPay" -> {
+                    binding.tvWithdrawStep2MethodBadge.text = "NP"
+                    binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.power_green_primary)
+                    binding.tvWithdrawStep2MethodName.text = "NayaPay"
+                    binding.tvWithdrawNumberLabel.text = "NayaPay Mobile / IBAN"
+                }
+                "Bank Alfalah" -> {
+                    binding.tvWithdrawStep2MethodBadge.text = "BA"
+                    binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bank_alfalah_red)
+                    binding.tvWithdrawStep2MethodName.text = "Bank Alfalah"
+                    binding.tvWithdrawNumberLabel.text = "Account / IBAN Number"
+                }
+                "Meezan Bank" -> {
+                    binding.tvWithdrawStep2MethodBadge.text = "MB"
+                    binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.power_green_deep)
+                    binding.tvWithdrawStep2MethodName.text = "Meezan Bank"
+                    binding.tvWithdrawNumberLabel.text = "Account / IBAN Number"
+                }
+                else -> {
+                    val initials = if (selectedWithdrawMethod.length >= 2) selectedWithdrawMethod.substring(0, 2).uppercase() else "BK"
+                    binding.tvWithdrawStep2MethodBadge.text = initials
+                    binding.tvWithdrawStep2MethodBadge.backgroundTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_dark)
+                    binding.tvWithdrawStep2MethodName.text = selectedWithdrawMethod
+                    binding.tvWithdrawNumberLabel.text = if (selectedWithdrawMethod.contains("Bank", ignoreCase = true)) "Account / IBAN Number" else "$selectedWithdrawMethod Number"
                 }
             }
 
             setWithdrawStep(2)
         }
 
-        // Step 2 -> Submit
+        // Step 2 -> Submit (Triggers Verification Dialog)
         binding.btnWithdrawSubmit.setOnClickListener {
             val title = binding.etWithdrawAccountTitle.text.toString().trim()
             val number = binding.etWithdrawNumber.text.toString().trim()
@@ -504,11 +544,194 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "Withdrawal request of Rs $selectedWithdrawAmount submitted for $title ($number)!", Toast.LENGTH_LONG).show()
+            showWithdrawVerificationDialog(selectedWithdrawMethod, title, number, selectedWithdrawAmount)
+        }
+    }
+
+    private fun resetWithdrawMethodSelection() {
+        selectedWithdrawMethod = ""
+
+        binding.tvSelectedWalletName.text = ""
+        binding.tvSelectedWalletName.visibility = View.GONE
+        binding.ivSelectedWalletIcon.setImageResource(R.drawable.ic_cards)
+        binding.ivSelectedWalletIcon.visibility = View.VISIBLE
+        binding.tvWalletDropdownTag.text = "Select wallet"
+        binding.tvWalletDropdownTag.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+        binding.pillWalletDropdown.setBackgroundResource(R.drawable.bg_pill_lang)
+        binding.btnDropdownWallet.setBackgroundResource(R.drawable.bg_dropdown_card_inactive)
+
+        binding.tvSelectedBankName.text = ""
+        binding.tvSelectedBankName.visibility = View.GONE
+        binding.ivSelectedBankIcon.setImageResource(R.drawable.ic_bank)
+        binding.ivSelectedBankIcon.visibility = View.VISIBLE
+        binding.tvBankDropdownTag.text = "Select bank"
+        binding.tvBankDropdownTag.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+        binding.pillBankDropdown.setBackgroundResource(R.drawable.bg_pill_lang)
+        binding.btnDropdownBank.setBackgroundResource(R.drawable.bg_dropdown_card_inactive)
+    }
+
+    private fun showWalletPickerBottomSheet() {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.layout_wallet_picker_sheet, null)
+        dialog.setContentView(sheetView)
+
+        sheetView.findViewById<View>(R.id.btnDismissWalletPicker)?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val walletItems = mapOf(
+            R.id.itemWalletJazzCash to "JazzCash",
+            R.id.itemWalletEasypaisa to "Easypaisa",
+            R.id.itemWalletSadaPay to "SadaPay",
+            R.id.itemWalletNayaPay to "NayaPay",
+            R.id.itemWalletUPaisa to "UPaisa",
+            R.id.itemWalletZindigi to "Zindigi"
+        )
+
+        walletItems.forEach { (resId, method) ->
+            sheetView.findViewById<View>(resId)?.setOnClickListener {
+                selectedWithdrawMethod = method
+                binding.tvSelectedWalletName.text = method
+                binding.tvSelectedWalletName.visibility = View.VISIBLE
+                binding.ivSelectedWalletIcon.visibility = View.VISIBLE
+                binding.tvWalletDropdownTag.text = "Selected"
+                binding.tvWalletDropdownTag.setTextColor(ContextCompat.getColor(this, R.color.deposit_green_dark))
+                binding.pillWalletDropdown.setBackgroundResource(R.drawable.bg_badge_verified)
+                binding.pillWalletDropdown.backgroundTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_light)
+                binding.btnDropdownWallet.setBackgroundResource(R.drawable.bg_dropdown_card_active)
+
+                // Deactivate bank card
+                binding.tvSelectedBankName.text = "Select bank"
+                binding.tvSelectedBankName.visibility = View.VISIBLE
+                binding.ivSelectedBankIcon.setImageResource(R.drawable.ic_bank)
+                binding.ivSelectedBankIcon.imageTintList = ContextCompat.getColorStateList(this, R.color.text_secondary)
+                binding.ivSelectedBankIcon.visibility = View.VISIBLE
+                binding.tvBankDropdownTag.text = "Select"
+                binding.tvBankDropdownTag.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+                binding.pillBankDropdown.setBackgroundResource(R.drawable.bg_pill_lang)
+                binding.pillBankDropdown.backgroundTintList = null
+                binding.btnDropdownBank.setBackgroundResource(R.drawable.bg_dropdown_card_inactive)
+
+                when (method) {
+                    "JazzCash" -> {
+                        binding.ivSelectedWalletIcon.setImageResource(R.drawable.logo_jazzcash)
+                        binding.ivSelectedWalletIcon.imageTintList = null
+                    }
+                    "Easypaisa" -> {
+                        binding.ivSelectedWalletIcon.setImageResource(R.drawable.logo_easypaisa)
+                        binding.ivSelectedWalletIcon.imageTintList = null
+                    }
+                    "SadaPay" -> {
+                        binding.ivSelectedWalletIcon.setImageResource(R.drawable.logo_sadapay)
+                        binding.ivSelectedWalletIcon.imageTintList = null
+                    }
+                    else -> {
+                        binding.ivSelectedWalletIcon.setImageResource(R.drawable.ic_cards)
+                        binding.ivSelectedWalletIcon.imageTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_dark)
+                    }
+                }
+
+                dialog.dismiss()
+                Toast.makeText(this, "Selected $method", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun showBankPickerBottomSheet() {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.layout_bank_picker_sheet, null)
+        dialog.setContentView(sheetView)
+
+        sheetView.findViewById<View>(R.id.btnDismissBankPicker)?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val bankItems = mapOf(
+            R.id.itemBankAlfalah to "Bank Alfalah",
+            R.id.itemBankMeezan to "Meezan Bank",
+            R.id.itemBankHBL to "Habib Bank Limited (HBL)",
+            R.id.itemBankUBL to "United Bank Limited (UBL)",
+            R.id.itemBankMCB to "MCB Bank",
+            R.id.itemBankABL to "Allied Bank Limited (ABL)",
+            R.id.itemBankFaysal to "Faysal Bank",
+            R.id.itemBankSCB to "Standard Chartered Bank",
+            R.id.itemBankBOP to "The Bank of Punjab (BOP)",
+            R.id.itemBankAskari to "Askari Bank",
+            R.id.itemBankDIB to "Dubai Islamic Bank"
+        )
+
+        bankItems.forEach { (resId, bankName) ->
+            sheetView.findViewById<View>(resId)?.setOnClickListener {
+                selectedWithdrawMethod = bankName
+                binding.tvSelectedBankName.text = bankName
+                binding.tvSelectedBankName.visibility = View.VISIBLE
+                binding.ivSelectedBankIcon.visibility = View.VISIBLE
+                binding.tvBankDropdownTag.text = "Selected"
+                binding.tvBankDropdownTag.setTextColor(ContextCompat.getColor(this, R.color.deposit_green_dark))
+                binding.pillBankDropdown.setBackgroundResource(R.drawable.bg_badge_verified)
+                binding.pillBankDropdown.backgroundTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_light)
+                binding.btnDropdownBank.setBackgroundResource(R.drawable.bg_dropdown_card_active)
+
+                // Deactivate wallet card
+                binding.tvSelectedWalletName.text = "Select wallet"
+                binding.tvSelectedWalletName.visibility = View.VISIBLE
+                binding.ivSelectedWalletIcon.setImageResource(R.drawable.ic_cards)
+                binding.ivSelectedWalletIcon.imageTintList = ContextCompat.getColorStateList(this, R.color.text_secondary)
+                binding.ivSelectedWalletIcon.visibility = View.VISIBLE
+                binding.tvWalletDropdownTag.text = "Select"
+                binding.tvWalletDropdownTag.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+                binding.pillWalletDropdown.setBackgroundResource(R.drawable.bg_pill_lang)
+                binding.pillWalletDropdown.backgroundTintList = null
+                binding.btnDropdownWallet.setBackgroundResource(R.drawable.bg_dropdown_card_inactive)
+
+                when (bankName) {
+                    "Bank Alfalah" -> {
+                        binding.ivSelectedBankIcon.setImageResource(R.drawable.logo_bank_alfalah)
+                        binding.ivSelectedBankIcon.imageTintList = null
+                    }
+                    else -> {
+                        binding.ivSelectedBankIcon.setImageResource(R.drawable.ic_bank)
+                        binding.ivSelectedBankIcon.imageTintList = ContextCompat.getColorStateList(this, R.color.deposit_green_dark)
+                    }
+                }
+
+                dialog.dismiss()
+                Toast.makeText(this, "Selected $bankName", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun showWithdrawVerificationDialog(method: String, title: String, number: String, amount: Int) {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.dialog_withdraw_verification, null)
+        dialog.setContentView(sheetView)
+
+        sheetView.findViewById<TextView>(R.id.tvVerifyMethod)?.text = method
+        sheetView.findViewById<TextView>(R.id.tvVerifyTitle)?.text = title
+        sheetView.findViewById<TextView>(R.id.tvVerifyNumber)?.text = number
+        sheetView.findViewById<TextView>(R.id.tvVerifyAmount)?.text = "Rs " + String.format(Locale.getDefault(), "%,d", amount)
+
+        sheetView.findViewById<View>(R.id.btnDismissVerification)?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        sheetView.findViewById<View>(R.id.btnCancelVerification)?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        sheetView.findViewById<View>(R.id.btnConfirmWithdrawal)?.setOnClickListener {
+            dialog.dismiss()
+            Toast.makeText(this, "Withdrawal request of Rs $amount submitted for $title ($number)!", Toast.LENGTH_LONG).show()
             setWithdrawStep(1)
             switchTab(3) // Switch to History tab
             switchHistorySection(1) // Show Withdraw History
         }
+
+        dialog.show()
     }
 
     private fun setWithdrawStep(step: Int) {
@@ -709,23 +932,23 @@ class MainActivity : AppCompatActivity() {
 
         // WhatsApp Quick Questions (Triggered with clean text)
         binding.chipQuickDeposit.setOnClickListener {
-            val reply = SupportContent.quickReplies.first { it.question == "How to deposit funds?" }
-            handleQuickQuestion(reply.question, reply.answer)
+            val reply = SupportContent.quickReplies.firstOrNull { it.question == "How to deposit funds?" }
+            if (reply != null) handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickWithdraw.setOnClickListener {
-            val reply = SupportContent.quickReplies.first { it.question == "What is the withdrawal processing speed?" }
-            handleQuickQuestion(reply.question, reply.answer)
+            val reply = SupportContent.quickReplies.firstOrNull { it.question == "What is the withdrawal processing speed?" }
+            if (reply != null) handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickAccount.setOnClickListener {
-            val reply = SupportContent.quickReplies.first { it.question == "How can I get account help?" }
-            handleQuickQuestion(reply.question, reply.answer)
+            val reply = SupportContent.quickReplies.firstOrNull { it.question == "How can I get account help?" }
+            if (reply != null) handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickPassword.setOnClickListener {
-            val reply = SupportContent.quickReplies.first { it.question == "How do I change my account password?" }
-            handleQuickQuestion(reply.question, reply.answer)
+            val reply = SupportContent.quickReplies.firstOrNull { it.question == "How do I change my account password?" }
+            if (reply != null) handleQuickQuestion(reply.question, reply.answer)
         }
 
         binding.chipQuickWhatsApp.setOnClickListener {
