@@ -14,7 +14,13 @@ class AppSheets(private val ctx: AppContext) {
         return dialog to sheetView
     }
 
+    private val prefs = ctx.activity.getSharedPreferences("ui", android.content.Context.MODE_PRIVATE)
+
+    /** The bell's unread badge stays hidden once the notifications sheet has been opened. */
+    val notificationsSeen: Boolean get() = prefs.getBoolean("notifications_seen", false)
+
     fun showNotifications() {
+        prefs.edit().putBoolean("notifications_seen", true).apply()
         val (dialog, sheet) = inflate(R.layout.layout_notifications_sheet)
 
         val tvCount = sheet.findViewById<TextView>(R.id.tvNotificationCount)

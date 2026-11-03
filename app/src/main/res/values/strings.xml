@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Bpexch</string>
     <!-- Backend base URL. Use your https URL in production. -->
-    <string name="api_base_url" translatable="false">http://localhost:3000</string>
+    <string name="api_base_url" translatable="false">https://bpexch-backend.vercel.app</string>
     <string name="username_or_whatsapp_number">Username or WhatsApp Number</string>
     <string name="enter_username_or_mobile">Enter username or mobile</string>
     <string name="demo3322" translatable="false">demo@3322</string>
@@ -41,12 +41,12 @@
     <string name="only_one_account_is_allowed">Only one account is allowed per person. If we find more than one account or any cheating, your account will be closed permanently.</string>
     <string name="t_4" translatable="false">4</string>
     <string name="check_the_account_before_you">Check the Account Before You Send</string>
-    <string name="always_check_the_account_details">Always check the account details on the Deposit screen before sending money. After paying, upload your payment screenshot right away.</string>
+    <string name="always_check_the_account_details">Always check the account details on the Deposit screen before sending money.</string>
     <string name="t_5" translatable="false">5</string>
     <string name="never_share_your_password">Never Share Your Password</string>
     <string name="bpexch_staff_will_never_ask">Bpexch staff will never ask for your password or PIN. Contact us only through Live Support in this app or our official WhatsApp.</string>
     <string name="select_bank">Select Bank</string>
-    <string name="pay_upload_slip">Pay &amp; Upload Slip</string>
+    <string name="pay_upload_slip">Pay</string>
     <string name="bank_alfalah" translatable="false">Bank Alfalah</string>
     <string name="mansoor_mobiles_and_com" translatable="false">MANSOOR MOBILES AND COM...</string>
     <string name="next">Next  ➔</string>
@@ -63,10 +63,6 @@
     <string name="minimum_deposit_is_rs_500">Minimum deposit is Rs 500</string>
     <string name="t_800" translatable="false">800</string>
     <string name="t_1000" translatable="false">1000</string>
-    <string name="payment_screenshot">Payment Screenshot</string>
-    <string name="required">Required</string>
-    <string name="upload_payment_screenshot">Upload Payment Screenshot</string>
-    <string name="please_upload_your_payment_screenshot">Please upload your payment screenshot</string>
     <string name="note_optional">Note (optional)</string>
     <string name="eg_sent_from_my_bank">e.g. Sent from my Bank Alfalah account</string>
     <string name="submit_request">Submit Request  ✓</string>
@@ -126,7 +122,6 @@
     <string name="talk_on_whatsapp">Talk on WhatsApp</string>
     <string name="choose_emoji">Choose emoji</string>
     <string name="message">Message</string>
-    <string name="record_voice_message">Record voice message</string>
     <string name="watch_video_guide_60_seconds">▶ Watch Video Guide (60 seconds)</string>
     <string name="how_to_create_account_deposit">How to Create Account &amp; Deposit</string>
     <string name="follow_these_3_easy_steps">Follow these 3 easy steps to get started:</string>
@@ -216,9 +211,6 @@
     <string name="copied_to_clipboard">%1$s copied to clipboard</string>
     <string name="opening_whatsapp_for">Opening WhatsApp for %1$s</string>
     <string name="logged_out">You have been logged out.</string>
-    <string name="screenshot_attached">Payment screenshot attached ✓</string>
-    <string name="screenshot_added">Screenshot added</string>
-    <string name="opening_photos">Opening your photos...</string>
     <string name="deposit_submitted">Deposit request of Rs %1$d submitted successfully!</string>
     <string name="deposit_failed">Deposit request could not be sent. Please try again.</string>
     <string name="history_deposit_title">%1$s Deposit</string>
@@ -226,9 +218,6 @@
     <string name="amount_plus">+ Rs %1$s</string>
     <string name="amount_minus">- Rs %1$s</string>
     <string name="amount_rs">Rs %1$s</string>
-    <string name="voice_message_label">Voice message  ·  %1$s</string>
-    <string name="play_voice_message">Play voice message</string>
-    <string name="could_not_play_voice">Could not play this voice message</string>
     <string name="label_mobile_number">%1$s Mobile Number</string>
     <string name="label_mobile_iban">%1$s Mobile / IBAN</string>
     <string name="label_account_iban">Account / IBAN Number</string>
@@ -240,7 +229,6 @@
     <string name="withdraw_submitted">Withdrawal request of Rs %1$d submitted for %2$s (%3$s)!</string>
     <string name="withdraw_failed">Withdrawal request could not be sent. Please try again.</string>
     <string name="history_load_failed">Could not load your history. Please try again.</string>
-    <string name="bot_screenshot_received">We received your screenshot. Our team is checking your payment. Please wait a few minutes.</string>
     <string name="message_send_failed">Message could not be sent. Please try again.</string>
     <string name="mic_permission_needed">Please allow microphone access to record a voice message</string>
     <string name="stop_send_voice">Stop and send voice message</string>
@@ -252,7 +240,7 @@
     <string name="all_marked_read">All notifications marked as read</string>
     <string name="playing_video_guide">Playing video guide: How to create an account and deposit</string>
     <string name="qr_deposit_q">How do I deposit?</string>
-    <string name="qr_deposit_a">How to deposit on Bpexch:\n\n1. Tap Deposit on the Home screen or the Deposit tab\n2. Choose your bank or wallet (Bank Alfalah, JazzCash, Easypaisa)\n3. Send money to the account shown in the app\n4. Upload a screenshot of your payment\n\nYour deposit is usually added within 2 to 5 minutes.</string>
+    <string name="qr_deposit_a">How to deposit on Bpexch:\n\n1. Tap Deposit on the Home screen or the Deposit tab\n2. Choose your bank or wallet (Bank Alfalah, JazzCash, Easypaisa)\n3. Send money to the account shown in the app\n4. Submit your deposit request\n\nYour deposit is usually added within 2 to 5 minutes.</string>
     <string name="qr_withdraw_q">How long does a withdrawal take?</string>
     <string name="qr_withdraw_a">You can withdraw any time, day or night:\n\n• JazzCash &amp; Easypaisa: Under 5 minutes\n• Bank: 10 to 20 minutes\n• Fee: No fee\n\nJust open the Withdrawal tab and submit your request.</string>
     <string name="qr_account_q">I need help with my account</string>
@@ -265,4 +253,5 @@
     <string name="verify_rejected_message">Your account was not approved. Contact support for help.</string>
     <string name="verify_back">Back to login</string>
     <string name="verify_approved">Your account is approved!</string>
+    <string name="no_payment_methods">No payment methods are available right now.</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.bpexch
 
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -8,17 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
-import androidx.activity.result.contract.ActivityResultContracts
 
 /**
- * Floating support chat: backend message sync (polled while open), canned quick replies,
- * image attachments and voice notes. Bubble rendering lives in [ChatBubbles].
+ * Floating support chat: backend message sync (polled while open) and canned quick replies.
+ * Bubble rendering lives in [ChatBubbles].
  */
 class SupportChatController(private val ctx: AppContext) {
     private val b = ctx.binding
     private val api = ctx.api
     private val bubbles = ChatBubbles(ctx)
-    private val voice = VoiceRecorder(ctx) { file, seconds -> bubbles.addVoiceMessage(file, seconds) }
 
     private val mainHandler = Handler(Looper.getMainLooper())
     private val poller = Handler(Looper.getMainLooper())
@@ -34,15 +31,6 @@ class SupportChatController(private val ctx: AppContext) {
     private val renderedIds = mutableSetOf<String>()
     private var pendingSends = 0
     private var isFullscreen = false
-
-    private val pickAttachmentLauncher = ctx.activity.registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
-            bubbles.addImageMessage(uri, ctx.str(R.string.payment_screenshot))
-            mainHandler.postDelayed({
-                bubbles.addBotMessage(ctx.str(R.string.bot_screenshot_received))
-            }, 800)
-        }
-    }
 
     fun setup() {
         b.fabSupportChat.setOnClickListener { open() }
@@ -61,15 +49,6 @@ class SupportChatController(private val ctx: AppContext) {
             ctx.openWhatsApp("923001234567", "Hello Bpexch Official Support, I am contacting you from the app regarding account: ${api.username}")
         }
 
-        b.btnChatAttach.setOnClickListener {
-            try {
-                pickAttachmentLauncher.launch("image/*")
-            } catch (e: Exception) {
-                ctx.toast(ctx.str(R.string.opening_photos))
-            }
-        }
-
-        b.btnChatVoice.setOnClickListener { voice.toggle() }
         b.btnChatSend.setOnClickListener { sendTypedMessage() }
         b.etChatMessage.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -101,8 +80,6 @@ class SupportChatController(private val ctx: AppContext) {
 
     fun onDestroy() {
         stopPolling()
-        voice.release()
-        bubbles.release()
     }
 
     private fun bindQuickQuestion(chip: View, index: Int) {

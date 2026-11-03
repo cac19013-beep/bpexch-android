@@ -29,11 +29,11 @@
     <string name="one_account_per_person">ایک شخص، ایک اکاؤنٹ</string>
     <string name="only_one_account_is_allowed">ہر شخص کو صرف ایک اکاؤنٹ کی اجازت ہے۔ ایک سے زیادہ اکاؤنٹ یا کسی قسم کی دھوکہ دہی پائی گئی تو آپ کا اکاؤنٹ ہمیشہ کے لیے بند کر دیا جائے گا۔</string>
     <string name="check_the_account_before_you">پیسے بھیجنے سے پہلے اکاؤنٹ چیک کریں</string>
-    <string name="always_check_the_account_details">پیسے بھیجنے سے پہلے ہمیشہ ڈپازٹ اسکرین پر اکاؤنٹ کی تفصیل چیک کریں۔ ادائیگی کے فوراً بعد اپنا اسکرین شاٹ اپ لوڈ کریں۔</string>
+    <string name="always_check_the_account_details">پیسے بھیجنے سے پہلے ہمیشہ ڈپازٹ اسکرین پر اکاؤنٹ کی تفصیل چیک کریں۔</string>
     <string name="never_share_your_password">اپنا پاس ورڈ کسی کو نہ بتائیں</string>
     <string name="bpexch_staff_will_never_ask">Bpexch کا عملہ آپ سے کبھی پاس ورڈ یا پن نہیں مانگے گا۔ ہم سے صرف اس ایپ کی لائیو سپورٹ یا ہمارے آفیشل واٹس ایپ پر رابطہ کریں۔</string>
     <string name="select_bank">بینک منتخب کریں</string>
-    <string name="pay_upload_slip">ادائیگی کریں اور رسید اپ لوڈ کریں</string>
+    <string name="pay_upload_slip">ادائیگی کریں</string>
     <string name="next">آگے ➔</string>
     <string name="bank_name">بینک کا نام</string>
     <string name="account_title">اکاؤنٹ ٹائٹل</string>
@@ -41,10 +41,6 @@
     <string name="amount">رقم</string>
     <string name="rs">روپے</string>
     <string name="minimum_deposit_is_rs_500">کم از کم رقم 500 روپے ہے</string>
-    <string name="payment_screenshot">ادائیگی کا اسکرین شاٹ</string>
-    <string name="required">ضروری</string>
-    <string name="upload_payment_screenshot">ادائیگی کا اسکرین شاٹ اپ لوڈ کریں</string>
-    <string name="please_upload_your_payment_screenshot">براہ کرم اپنی ادائیگی کا اسکرین شاٹ اپ لوڈ کریں</string>
     <string name="note_optional">نوٹ (اختیاری)</string>
     <string name="eg_sent_from_my_bank">مثلاً: میرے بینک الفلاح اکاؤنٹ سے بھیجا</string>
     <string name="submit_request">درخواست بھیجیں ✓</string>
@@ -96,7 +92,6 @@
     <string name="talk_on_whatsapp">واٹس ایپ پر بات کریں</string>
     <string name="choose_emoji">ایموجی منتخب کریں</string>
     <string name="message">پیغام</string>
-    <string name="record_voice_message">آواز کا پیغام ریکارڈ کریں</string>
     <string name="watch_video_guide_60_seconds">▶ ویڈیو گائیڈ دیکھیں (60 سیکنڈ)</string>
     <string name="how_to_create_account_deposit">اکاؤنٹ بنانے اور رقم جمع کروانے کا طریقہ</string>
     <string name="follow_these_3_easy_steps">شروع کرنے کے لیے ان 3 آسان مراحل پر عمل کریں:</string>
@@ -168,9 +163,6 @@
     <string name="copied_to_clipboard">%1$s کاپی ہو گیا</string>
     <string name="opening_whatsapp_for">%1$s کے لیے واٹس ایپ کھل رہا ہے</string>
     <string name="logged_out">آپ لاگ آؤٹ ہو گئے ہیں۔</string>
-    <string name="screenshot_attached">ادائیگی کا اسکرین شاٹ شامل ہو گیا ✓</string>
-    <string name="screenshot_added">اسکرین شاٹ شامل ہو گیا</string>
-    <string name="opening_photos">آپ کی تصاویر کھل رہی ہیں...</string>
     <string name="deposit_submitted">%1$d روپے کی ڈپازٹ درخواست کامیابی سے بھیج دی گئی!</string>
     <string name="deposit_failed">ڈپازٹ کی درخواست نہیں بھیجی جا سکی۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="history_deposit_title">%1$s ڈپازٹ</string>
@@ -178,9 +170,6 @@
     <string name="amount_plus">+ %1$s روپے</string>
     <string name="amount_minus">- %1$s روپے</string>
     <string name="amount_rs">%1$s روپے</string>
-    <string name="voice_message_label">آواز کا پیغام  ·  %1$s</string>
-    <string name="play_voice_message">آواز کا پیغام چلائیں</string>
-    <string name="could_not_play_voice">یہ آواز کا پیغام نہیں چل سکا</string>
     <string name="label_mobile_number">%1$s موبائل نمبر</string>
     <string name="label_mobile_iban">%1$s موبائل / IBAN</string>
     <string name="label_account_iban">اکاؤنٹ / IBAN نمبر</string>
@@ -192,7 +181,6 @@
     <string name="withdraw_submitted">%2$s (%3$s) کے لیے %1$d روپے نکلوانے کی درخواست بھیج دی گئی!</string>
     <string name="withdraw_failed">رقم نکلوانے کی درخواست نہیں بھیجی جا سکی۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="history_load_failed">آپ کی ہسٹری لوڈ نہیں ہو سکی۔ براہ کرم دوبارہ کوشش کریں۔</string>
-    <string name="bot_screenshot_received">ہمیں آپ کا اسکرین شاٹ مل گیا ہے۔ ہماری ٹیم آپ کی ادائیگی چیک کر رہی ہے۔ براہ کرم چند منٹ انتظار کریں۔</string>
     <string name="message_send_failed">پیغام نہیں بھیجا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="mic_permission_needed">آواز کا پیغام ریکارڈ کرنے کے لیے براہ کرم مائیکروفون کی اجازت دیں</string>
     <string name="stop_send_voice">روکیں اور آواز کا پیغام بھیجیں</string>
@@ -204,7 +192,7 @@
     <string name="all_marked_read">تمام اطلاعات پڑھی ہوئی نشان ہو گئیں</string>
     <string name="playing_video_guide">ویڈیو گائیڈ چل رہی ہے: اکاؤنٹ بنانے اور رقم جمع کروانے کا طریقہ</string>
     <string name="qr_deposit_q">رقم کیسے جمع کروائیں؟</string>
-    <string name="qr_deposit_a">Bpexch پر رقم جمع کروانے کا طریقہ:\n\n1. ہوم اسکرین پر \"رقم جمع کروائیں\" یا ڈپازٹ ٹیب دبائیں\n2. اپنا بینک یا والٹ منتخب کریں (بینک الفلاح، جاز کیش، ایزی پیسہ)\n3. ایپ میں دکھائے گئے اکاؤنٹ میں رقم بھیجیں\n4. اپنی ادائیگی کا اسکرین شاٹ اپ لوڈ کریں\n\nآپ کی رقم عموماً 2 سے 5 منٹ میں جمع ہو جاتی ہے۔</string>
+    <string name="qr_deposit_a">Bpexch پر رقم جمع کروانے کا طریقہ:\n\n1. ہوم اسکرین پر \"رقم جمع کروائیں\" یا ڈپازٹ ٹیب دبائیں\n2. اپنا بینک یا والٹ منتخب کریں (بینک الفلاح، جاز کیش، ایزی پیسہ)\n3. ایپ میں دکھائے گئے اکاؤنٹ میں رقم بھیجیں\n4. اپنی ڈپازٹ کی درخواست جمع کروائیں\n\nآپ کی رقم عموماً 2 سے 5 منٹ میں جمع ہو جاتی ہے۔</string>
     <string name="qr_withdraw_q">رقم نکلوانے میں کتنا وقت لگتا ہے؟</string>
     <string name="qr_withdraw_a">آپ دن یا رات کسی بھی وقت رقم نکلوا سکتے ہیں:\n\n• جاز کیش اور ایزی پیسہ: 5 منٹ سے کم\n• بینک: 10 سے 20 منٹ\n• فیس: کوئی فیس نہیں\n\nبس رقم نکلوانے کا ٹیب کھولیں اور اپنی درخواست بھیج دیں۔</string>
     <string name="qr_account_q">مجھے اپنے اکاؤنٹ میں مدد چاہیے</string>
@@ -217,4 +205,5 @@
     <string name="verify_rejected_message">آپ کا اکاؤنٹ منظور نہیں ہوا۔ مدد کے لیے سپورٹ سے رابطہ کریں۔</string>
     <string name="verify_back">لاگ ان پر واپس جائیں</string>
     <string name="verify_approved">آپ کا اکاؤنٹ منظور ہو گیا ہے!</string>
+    <string name="no_payment_methods">اس وقت کوئی ادائیگی کا طریقہ دستیاب نہیں ہے۔</string>
 </resources>

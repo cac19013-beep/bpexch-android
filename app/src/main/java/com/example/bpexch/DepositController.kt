@@ -1,10 +1,14 @@
 package com.example.bpexch
 
-import android.net.Uri
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 
 /** Deposit tab: amount + payment-slip flow, and the payment account details it shows. */
 class DepositController(private val ctx: AppContext) {
@@ -12,25 +16,13 @@ class DepositController(private val ctx: AppContext) {
     private val steps = StepIndicator(
         ctx, b.layoutDepositStep1, b.layoutDepositStep2, b.tvDepositStep1Icon, b.lineDepositStep, b.tvDepositStep2Icon, b.tvDepositStep2Label,
     )
-    private var depositMethodName = "Bank Alfalah"
-    private var selectedReceiptUri: Uri? = null
-
-    // Android SAF picker: no runtime permission needed.
-    private val pickReceiptLauncher = ctx.activity.registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
-            selectedReceiptUri = uri
-            b.tvReceiptStatus.text = ctx.str(R.string.screenshot_attached)
-            b.tvReceiptStatus.setTextColor(ctx.color(R.color.deposit_green_dark))
-            b.ivReceiptPreview.setImageURI(uri)
-            b.ivReceiptPreview.scaleType = ImageView.ScaleType.CENTER_CROP
-            b.ivReceiptPreview.setPadding(0, 0, 0, 0)
-            ctx.toast(ctx.str(R.string.screenshot_added))
-        }
-    }
+    private var depositMethodName = ""
+    private var methods: List<PaymentMethod> = emptyList()
 
     fun openFlow() {
         ctx.navigation.switchTab(1)
         steps.show(1)
+        loadPaymentMethods()
     }
 
     fun setup() {
@@ -40,8 +32,9 @@ class DepositController(private val ctx: AppContext) {
             if (b.layoutDepositStep2.visibility == View.VISIBLE) steps.show(1) else ctx.navigation.switchTab(0)
         }
 
-        b.cardBankAlfalah.setOnClickListener { b.rbBankAlfalah.isChecked = true }
-        b.btnDepositNext.setOnClickListener { steps.show(2) }
+        b.btnDepositNext.setOnClickListener {
+            if (depositMethodName.isEmpty()) ctx.toast(ctx.str(R.string.no_payment_methods)) else steps.show(2)
+        }
 
         b.btnCopyDepositAcc.setOnClickListener {
             ctx.copyToClipboard(ctx.str(R.string.account_number), b.tvDepositAccNumber.text.toString())
@@ -51,14 +44,6 @@ class DepositController(private val ctx: AppContext) {
         }
 
         setupAmountChips()
-
-        b.boxAttachReceipt.setOnClickListener {
-            try {
-                pickReceiptLauncher.launch("image/*")
-            } catch (e: Exception) {
-                ctx.toast(ctx.str(R.string.opening_photos))
-            }
-        }
 
         b.btnDepositSubmit.setOnClickListener { submit() }
     }
@@ -105,17 +90,103 @@ class DepositController(private val ctx: AppContext) {
         }
     }
 
+    /** Fetches the methods staff have activated; called each time the deposit tab opens. */
     fun loadPaymentMethods() {
         ctx.api.paymentMethods { result ->
-            result.onSuccess { methods ->
-                val method = methods.firstOrNull { it.channelName.equals("Bank Alfalah", ignoreCase = true) }
-                    ?: methods.firstOrNull()
-                    ?: return@onSuccess
-                depositMethodName = method.channelName
-                b.tvDepositAccTitle.text = method.accountTitle
-                b.tvDepositAccNumber.text = method.accountNumber
-                b.tvDepositIban.text = method.iban ?: ""
+            result.onSuccess { list ->
+                methods = list
+                if (list.none { it.channelName == depositMethodName }) {
+                    depositMethodName = list.firstOrNull()?.channelName ?: ""
+                }
+                renderMethods()
             }
         }
+    }
+
+    private fun renderMethods() {
+        val container = b.layoutDepositMethods
+        container.removeAllViews()
+        b.tvDepositMethodsEmpty.visibility = if (methods.isEmpty()) View.VISIBLE else View.GONE
+        b.btnDepositNext.isEnabled = methods.isNotEmpty()
+        methods.forEach { container.addView(methodCard(it)) }
+        methods.firstOrNull { it.channelName == depositMethodName }?.let { showAccount(it) }
+    }
+
+    private fun methodCard(method: PaymentMethod): View {
+        val card = LinearLayout(ctx.activity).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setBackgroundResource(R.drawable.bg_card_white)
+            elevation = ctx.dp(2).toFloat()
+            setPadding(ctx.dp(16), ctx.dp(16), ctx.dp(16), ctx.dp(16))
+            layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply { bottomMargin = ctx.dp(12) }
+            isClickable = true
+            isFocusable = true
+        }
+        card.addView(logoFor(method.channelName))
+        card.addView(LinearLayout(ctx.activity).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginStart = ctx.dp(14) }
+            addView(TextView(ctx.activity).apply {
+                text = method.channelName
+                textSize = 15f
+                setTypeface(typeface, android.graphics.Typeface.BOLD)
+                setTextColor(ctx.color(R.color.text_primary))
+            })
+            addView(TextView(ctx.activity).apply {
+                text = method.accountTitle
+                textSize = 12f
+                setTextColor(ctx.color(R.color.text_secondary))
+            })
+        })
+        card.addView(RadioButton(ctx.activity).apply {
+            isChecked = method.channelName == depositMethodName
+            isClickable = false
+        })
+        card.setOnClickListener {
+            depositMethodName = method.channelName
+            renderMethods()
+        }
+        return card
+    }
+
+    private fun logoFor(name: String): View {
+        val logo = when {
+            name.contains("alfalah", ignoreCase = true) -> R.drawable.logo_bank_alfalah
+            name.contains("jazz", ignoreCase = true) -> R.drawable.logo_jazzcash
+            name.contains("easypaisa", ignoreCase = true) -> R.drawable.logo_easypaisa
+            name.contains("sadapay", ignoreCase = true) -> R.drawable.logo_sadapay
+            else -> null
+        }
+        val size = ctx.dp(44)
+        val params = LinearLayout.LayoutParams(size, size)
+        if (logo != null) {
+            return ShapeableImageView(ctx.activity).apply {
+                layoutParams = params
+                setBackgroundResource(R.drawable.bg_circle_icon_button)
+                setPadding(ctx.dp(3), ctx.dp(3), ctx.dp(3), ctx.dp(3))
+                scaleType = ImageView.ScaleType.FIT_CENTER
+                setImageResource(logo)
+                shapeAppearanceModel = ShapeAppearanceModel.builder().setAllCornerSizes(ShapeAppearanceModel.PILL).build()
+            }
+        }
+        return TextView(ctx.activity).apply {
+            layoutParams = params
+            setBackgroundResource(R.drawable.bg_circle_icon_button)
+            gravity = Gravity.CENTER
+            text = name.take(2).uppercase()
+            textSize = 14f
+            setTypeface(typeface, android.graphics.Typeface.BOLD)
+            setTextColor(ctx.color(R.color.deposit_green_dark))
+        }
+    }
+
+    private fun showAccount(method: PaymentMethod) {
+        b.tvDepositMethodName.text = method.channelName
+        b.tvDepositAccTitle.text = method.accountTitle
+        b.tvDepositAccNumber.text = method.accountNumber
+        b.tvDepositIban.text = method.iban ?: ""
+        b.rowDepositIban.visibility = if (method.iban.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 }

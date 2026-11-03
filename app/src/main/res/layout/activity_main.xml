@@ -500,6 +500,7 @@
                                     android:src="@drawable/ic_notification_bell" />
 
                                 <TextView
+                                    android:id="@+id/tvNotificationBadge"
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_alignParentEnd="true"
@@ -1329,60 +1330,25 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <!-- Bank Card: Bank Alfalah -->
+                <!-- Active payment methods, filled from the server -->
                 <LinearLayout
-                    android:id="@+id/cardBankAlfalah"
+                    android:id="@+id/layoutDepositMethods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/bg_card_white"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:background="@drawable/bg_circle_icon_button"
-                        android:padding="3dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/logo_bank_alfalah"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/bank_alfalah"
-                            android:textColor="@color/text_primary"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="@string/mansoor_mobiles_and_com"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <RadioButton
-                        android:id="@+id/rbBankAlfalah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:clickable="false" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvDepositMethodsEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/no_payment_methods"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
 
                 <!-- Next Button -->
                 <com.google.android.material.button.MaterialButton
@@ -1433,6 +1399,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
+                            android:id="@+id/tvDepositMethodName"
                             android:text="@string/bank_alfalah"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp"
@@ -1508,6 +1475,7 @@
 
                     <!-- IBAN -->
                     <RelativeLayout
+                        android:id="@+id/rowDepositIban"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -1664,90 +1632,6 @@
                             android:textColor="@color/deposit_green_dark"
                             android:textSize="13sp"
                             android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Payment Screenshot Header -->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/payment_screenshot"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:background="@drawable/bg_card_white"
-                            android:backgroundTint="@color/badge_red_light"
-                            android:paddingStart="8dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="2dp"
-                            android:text="@string/required"
-                            android:textColor="@color/badge_red_text"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <!-- Dashed Green Box for Payment Screenshot -->
-                    <LinearLayout
-                        android:id="@+id/boxAttachReceipt"
-                        android:layout_width="match_parent"
-                        android:layout_height="72dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/bg_dashed_green"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/ivReceiptPreview"
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:background="@drawable/bg_circle_icon_button"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_camera" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="14dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/upload_payment_screenshot"
-                                android:textColor="@color/deposit_green_dark"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvReceiptStatus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/please_upload_your_payment_screenshot"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/text_secondary" />
                     </LinearLayout>
 
                     <!-- Note (optional) -->
@@ -3577,31 +3461,6 @@
                         android:textColor="#111B21"
                         android:textColorHint="#8696A0"
                         android:textSize="14sp" />
-
-                    <!-- Attach Paperclip Icon (Opens system photo/screenshot picker!) -->
-                    <ImageView
-                        android:id="@+id/btnChatAttach"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="6dp"
-                        android:src="@drawable/ic_attachment"
-                        app:tint="#8696A0" />
-
-                    <!-- Voice Message Recorder -->
-                    <ImageView
-                        android:id="@+id/btnChatVoice"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:contentDescription="@string/record_voice_message"
-                        android:focusable="true"
-                        android:padding="6dp"
-                        android:src="@drawable/ic_mic"
-                        app:tint="#8696A0" />
                 </LinearLayout>
 
                 <!-- WhatsApp Green Floating Send Button -->

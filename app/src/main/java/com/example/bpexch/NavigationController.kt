@@ -28,6 +28,7 @@ class NavigationController(private val ctx: AppContext) {
 
     fun switchTab(tabIndex: Int) {
         currentTab = tabIndex
+        if (tabIndex == 1) ctx.deposit.loadPaymentMethods()
         if (tabIndex == 2) ctx.withdraw.resetMethodSelection()
 
         b.mainScrollView.scrollTo(0, 0)

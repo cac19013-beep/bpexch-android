@@ -49,7 +49,11 @@ class HomeController(private val ctx: AppContext) {
         b.cardHomeWithdraw.setOnClickListener { ctx.withdraw.openFlow() }
         b.cardHomeWhatsApp.setOnClickListener { ctx.support.open() }
         languagePills.forEach { it.pill.setOnClickListener { toggleLanguage() } }
-        b.btnNotifications.setOnClickListener { ctx.sheets.showNotifications() }
+        b.tvNotificationBadge.visibility = if (ctx.sheets.notificationsSeen) View.GONE else View.VISIBLE
+        b.btnNotifications.setOnClickListener {
+            ctx.sheets.showNotifications()
+            b.tvNotificationBadge.visibility = View.GONE
+        }
         b.btnProfile.setOnClickListener { ctx.sheets.showProfile() }
     }
 
