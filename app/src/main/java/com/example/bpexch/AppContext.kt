@@ -51,11 +51,21 @@ class AppContext(
 
     fun showError(error: Throwable, fallback: String) {
         toast(error.message ?: fallback, long = true)
-        // The session may have expired: api.logout() was already called on an unrecoverable 401.
-        if (!api.isLoggedIn && binding.layoutMain.visibility == View.VISIBLE) {
-            binding.layoutMain.visibility = View.GONE
-            binding.containerAuth.visibility = View.VISIBLE
-        }
+        returnToLoginIfSignedOut()
+    }
+
+    /**
+     * The session may have ended (api.logout() already ran on an unrecoverable 401, or on a
+     * suspended account). Background refreshes call this too, so a dead session never leaves the
+     * user on a screen that silently stopped updating.
+     */
+    fun returnToLoginIfSignedOut() {
+        if (api.isLoggedIn || binding.layoutMain.visibility != View.VISIBLE) return
+        support.stopPolling()
+        history.clear()
+        support.clearRendered()
+        binding.layoutMain.visibility = View.GONE
+        binding.containerAuth.visibility = View.VISIBLE
     }
 
     fun copyToClipboard(label: String, text: String) {

@@ -7,7 +7,6 @@
     <string name="demo3322" translatable="false">demo@3322</string>
     <string name="password">Password</string>
     <string name="enter_password">Enter password</string>
-    <string name="demopass123" translatable="false">demo@pass123</string>
     <string name="login">Login</string>
     <string name="create_account">Create Account</string>
     <string name="contact_us_on_whatsapp">Contact us on WhatsApp</string>
@@ -254,4 +253,10 @@
     <string name="verify_back">Back to login</string>
     <string name="verify_approved">Your account is approved!</string>
     <string name="no_payment_methods">No payment methods are available right now.</string>
+    <string name="payment_screenshot">Payment screenshot</string>
+    <string name="attach_screenshot">Tap to attach the payment screenshot</string>
+    <string name="change_screenshot">Screenshot attached. Tap to change</string>
+    <string name="screenshot_required">Attach the payment screenshot first</string>
+    <string name="screenshot_unreadable">Could not read that image. Choose another one.</string>
+    <string name="enter_amount">Enter an amount</string>
 </resources>

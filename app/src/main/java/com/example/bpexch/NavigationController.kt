@@ -30,6 +30,7 @@ class NavigationController(private val ctx: AppContext) {
         currentTab = tabIndex
         if (tabIndex == 1) ctx.deposit.loadPaymentMethods()
         if (tabIndex == 2) ctx.withdraw.resetMethodSelection()
+        if (tabIndex == 3) ctx.history.startPolling() else ctx.history.stopPolling()
 
         b.mainScrollView.scrollTo(0, 0)
 

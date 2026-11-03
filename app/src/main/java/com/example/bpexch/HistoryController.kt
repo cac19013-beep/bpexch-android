@@ -1,5 +1,7 @@
 package com.example.bpexch
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -73,13 +75,40 @@ class HistoryController(private val ctx: AppContext) {
         b.btnHistoryWithdraw.setTextColor(if (sectionIndex == 1) activeTextColor else inactiveTextColor)
     }
 
-    fun load() {
+    fun load(silent: Boolean = false) {
         ctx.api.history { result ->
             result.onSuccess {
+                if (it == items) return@onSuccess // nothing changed: keep the list (and scroll position) as is
                 items = it
                 render()
-            }.onFailure { ctx.showError(it, ctx.str(R.string.history_load_failed)) }
+            }.onFailure {
+                if (silent) ctx.returnToLoginIfSignedOut() else ctx.showError(it, ctx.str(R.string.history_load_failed))
+            }
         }
+    }
+
+    private val poller = Handler(Looper.getMainLooper())
+    private val pollTask = object : Runnable {
+        override fun run() {
+            if (ctx.api.isLoggedIn) {
+                load(silent = true)
+                poller.postDelayed(this, POLL_INTERVAL_MS)
+            }
+        }
+    }
+
+    /** Keeps the list in step with staff decisions while the History tab is on screen. */
+    fun startPolling() {
+        poller.removeCallbacks(pollTask)
+        if (!ctx.api.isLoggedIn) return
+        load(silent = true)
+        poller.postDelayed(pollTask, POLL_INTERVAL_MS)
+    }
+
+    fun stopPolling() = poller.removeCallbacks(pollTask)
+
+    private companion object {
+        const val POLL_INTERVAL_MS = 8_000L
     }
 
     /** After a successful deposit/withdrawal: refresh and jump to the matching history list. */
@@ -90,6 +119,7 @@ class HistoryController(private val ctx: AppContext) {
     }
 
     fun clear() {
+        stopPolling()
         items = emptyList()
         render()
     }

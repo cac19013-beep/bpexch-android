@@ -105,9 +105,10 @@ class ApiClient(context: Context) {
         })
     }
 
-    fun deposit(amount: Long, method: String, done: (Result<TransactionItem>) -> Unit) {
+    /** [receipt] is the payment screenshot as base64 (JPEG). */
+    fun deposit(amount: Long, method: String, receipt: String, done: (Result<TransactionItem>) -> Unit) {
         enqueue(done, {
-            val body = JSONObject().put("amount", amount).put("method", method)
+            val body = JSONObject().put("amount", amount).put("method", method).put("receipt", receipt)
             parseTransaction(request("POST", "/api/deposit", body).getJSONObject("transaction"))
         })
     }
@@ -187,7 +188,7 @@ class ApiClient(context: Context) {
         try {
             conn.requestMethod = method
             conn.connectTimeout = 10_000
-            conn.readTimeout = 15_000
+            conn.readTimeout = 30_000
             conn.setRequestProperty("Accept", "application/json")
             if (auth) conn.setRequestProperty("Authorization", "Bearer " + (prefs.getString(KEY_TOKEN, "") ?: ""))
             if (body != null) {
@@ -205,7 +206,8 @@ class ApiClient(context: Context) {
                 return request(method, path, body, auth, retried = true)
             }
             if (status !in 200..299 || !json.optBoolean("success", false)) {
-                if (status == 401 && auth) logout()
+                // A suspended account can't use the app either: end the session instead of leaving it half-working.
+                if (auth && (status == 401 || (status == 403 && json.optString("error") == "Account is suspended"))) logout()
                 // Validation errors carry the specific reason (e.g. which username rule failed).
                 val reason = json.optJSONArray("errors")?.optJSONObject(0)?.optString("message")?.takeIf { it.isNotEmpty() }
                 throw ApiException(reason ?: json.optString("error", "Request failed ($status)"), status)

@@ -56,11 +56,15 @@ class WithdrawController(private val ctx: AppContext) {
     }
 
     private fun goToDetails() {
-        val amount = b.etWithdrawAmountFlow.text.toString().trim().toIntOrNull() ?: 1000
+        val amount = b.etWithdrawAmountFlow.text.toString().trim().toIntOrNull()
         val method = picker.selectedMethod
 
         if (method.isBlank()) {
             ctx.toast(ctx.str(R.string.choose_method_first))
+            return
+        }
+        if (amount == null) {
+            ctx.toast(ctx.str(R.string.enter_amount))
             return
         }
         if (amount < 500) {

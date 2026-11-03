@@ -86,7 +86,6 @@
                     android:background="@null"
                     android:hint="@string/enter_username_or_mobile"
                     android:inputType="text"
-                    android:text="@string/demo3322"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_hint"
                     android:textSize="14sp" />
@@ -129,7 +128,6 @@
                     android:background="@null"
                     android:hint="@string/enter_password"
                     android:inputType="textPassword"
-                    android:text="@string/demopass123"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_hint"
                     android:textSize="14sp" />
@@ -1654,6 +1652,46 @@
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
                         android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- Payment screenshot (required) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_card_white"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:text="@string/payment_screenshot"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/btnDepositAttach"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/bg_input_box"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/attach_screenshot"
+                        android:textColor="@color/text_hint"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/ivDepositSlipPreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="10dp"
+                        android:contentDescription="@string/payment_screenshot"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <!-- Submit Button -->

@@ -206,4 +206,10 @@
     <string name="verify_back">لاگ ان پر واپس جائیں</string>
     <string name="verify_approved">آپ کا اکاؤنٹ منظور ہو گیا ہے!</string>
     <string name="no_payment_methods">اس وقت کوئی ادائیگی کا طریقہ دستیاب نہیں ہے۔</string>
+    <string name="payment_screenshot">ادائیگی کا اسکرین شاٹ</string>
+    <string name="attach_screenshot">ادائیگی کا اسکرین شاٹ لگانے کے لیے ٹیپ کریں</string>
+    <string name="change_screenshot">اسکرین شاٹ لگ گیا۔ بدلنے کے لیے ٹیپ کریں</string>
+    <string name="screenshot_required">پہلے ادائیگی کا اسکرین شاٹ لگائیں</string>
+    <string name="screenshot_unreadable">یہ تصویر پڑھی نہیں جا سکی۔ کوئی اور چنیں۔</string>
+    <string name="enter_amount">رقم درج کریں</string>
 </resources>

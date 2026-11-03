@@ -135,7 +135,7 @@ class SupportChatController(private val ctx: AppContext) {
                     if (message.sender == "bot") bubbles.addBotMessage(message.text)
                     else bubbles.addUserMessage(message.text)
                 }
-            }
+            }.onFailure { ctx.returnToLoginIfSignedOut() }
         }
     }
 

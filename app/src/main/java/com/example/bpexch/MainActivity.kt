@@ -58,6 +58,16 @@ class MainActivity : AppCompatActivity() {
         outState.putBoolean(STATE_CHAT_OPEN, ctx.support.isOpen)
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (::ctx.isInitialized && ctx.navigation.currentTab == 3) ctx.history.startPolling()
+    }
+
+    override fun onStop() {
+        if (::ctx.isInitialized) ctx.history.stopPolling()
+        super.onStop()
+    }
+
     override fun onDestroy() {
         ctx.support.onDestroy()
         ctx.verification.onDestroy()
